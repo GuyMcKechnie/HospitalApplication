@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -30,10 +31,13 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Email" />
                                     <Text fx:id="signUp_EmailError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="267.0068359375" />
-                                    <TextField fx:id="signUp_EmailInput" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
+                                    <TextField fx:id="signUp_EmailInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
+                                       <tooltip>
+                                          <Tooltip text="Enter your email address." />
+                                       </tooltip>
                                     </TextField>
                                  </children>
                               </FlowPane>
@@ -41,10 +45,13 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Password" />
                                     <Text fx:id="signUp_PasswordError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="230.8020782470703" />
-                                    <TextField fx:id="signUp_PasswordInput" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
+                                    <TextField fx:id="signUp_PasswordInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
+                                       <tooltip>
+                                          <Tooltip text="Enter your password." />
+                                       </tooltip>
                                     </TextField>
                                  </children>
                               </FlowPane>
@@ -52,23 +59,34 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Admin Code" />
                                     <Text fx:id="signUp_AdminCodeError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="162.37437438964844" />
-                                    <TextField fx:id="signUp_AdminCodeInput" prefHeight="60.0" prefWidth="340.0" promptText="code#123" styleClass="textfield">
+                                    <TextField fx:id="signUp_AdminCodeInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="code#123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
+                                       <tooltip>
+                                          <Tooltip text="Enter the admin code provided by the administrator." />
+                                       </tooltip>
                                     </TextField>
                                  </children>
                               </FlowPane>
-                              <Button mnemonicParsing="false" onAction="#handleSignUp" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
+                              <Button fx:id="signUp_SignUpButton" mnemonicParsing="false" onAction="#handleSignUp" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                 <tooltip>
+                                    <Tooltip text="Click to create a new account." />
+                                 </tooltip>
                               </Button>
                            </children>
                            <VBox.margin>
                               <Insets left="20.0" right="20.0" top="30.0" />
                            </VBox.margin>
                         </VBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="p" text="Press F1 for help or use the menu to the right.">
+                           <VBox.margin>
+                              <Insets top="60.0" />
+                           </VBox.margin>
+                        </Text>
                      </children>
                      <padding>
                         <Insets top="40.0" />

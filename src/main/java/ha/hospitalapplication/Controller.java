@@ -3,9 +3,14 @@ package ha.hospitalapplication;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
@@ -50,7 +55,7 @@ public class Controller {
             }
         }
         if (dataValidator.presenceAndLengthCheck(password, signIn_PasswordError) == true) {
-            if (dataValidator.typeCheck(password, signIn_PasswordError, ";#-=.") == true) {
+            if (dataValidator.typeCheck(password, signIn_PasswordError, "@;#-=.") == true) {
                 validPassword = true;
             }
         }
@@ -133,9 +138,6 @@ public class Controller {
             }
         }
         validAdminCode = dataValidator.adminPasswordValidation(adminCode, signUp_AdminCodeError);
-        System.out.println("Controller:\tSign-Up DV:\tEmail: " + validEmail + "\tPassword: " + validPassword
-                + "\tAdmin Password: " + validAdminCode);
-
     }
 
     /**
@@ -146,7 +148,7 @@ public class Controller {
      * representing the error labels and sets their text to an empty string.
      * 
      */
-    public void clearErrors() {
+    private void clearErrors() {
         List<Text> errors = new ArrayList<>();
         errors.add(this.signIn_EmailError);
         errors.add(this.signIn_PasswordError);
@@ -164,4 +166,43 @@ public class Controller {
         }
     }
 
+    /*
+     * Sign in contextual help
+     */
+
+    @FXML
+    Button signIn_SignInButton;
+    @FXML
+    Button signUp_SignUpButton;
+
+    @FXML
+    private void handleCT(KeyEvent event) {
+        if (event.getCode() == KeyCode.F1) {
+            if (event.getSource().equals(signIn_EmailInput) || event.getSource().equals(signUp_EmailInput)) {
+                JOptionPane.showMessageDialog(null, "Enter your email address in the format 'example@example.com'");
+            } else if (event.getSource().equals(signIn_PasswordInput)) {
+                JOptionPane.showMessageDialog(null,
+                        "Enter your password.");
+            } else {
+                try {
+                    if (event.getSource().equals(signIn_SignInButton)) {
+                        JOptionPane.showMessageDialog(null,
+                                "Click to sign in to your account. Ensure you have entered a valid email and password.");
+                    } else if (event.getSource().equals(signUp_SignUpButton)) {
+                        JOptionPane.showMessageDialog(null,
+                                "Click to create a new account. Ensure you have entered a valid email, password, and admin code.");
+                    } else if (event.getSource().equals(signUp_AdminCodeInput)) {
+                        JOptionPane.showMessageDialog(null, "Enter the admin code provided by the administrator.");
+                    } else if (event.getSource().equals(signUp_PasswordInput)) {
+                        JOptionPane.showMessageDialog(null,
+                                "Enter your password. It should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.");
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Please select a component to provide contextual help for.");
+                    }
+                } catch (Exception e) {
+                }
+            }
+        }
+    }
 }
