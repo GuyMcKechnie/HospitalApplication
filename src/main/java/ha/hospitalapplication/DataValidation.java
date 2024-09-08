@@ -22,8 +22,9 @@ public class DataValidation {
         if (textField == null || textField.getText().length() <= 1) {
             text.setText("Enter at least one character!");
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
     /*
