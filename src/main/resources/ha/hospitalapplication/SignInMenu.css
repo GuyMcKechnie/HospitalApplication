@@ -1,0 +1,78 @@
+
+/*Colours*/
+/*    --primary: #000695;
+    --secondary: #AFDBDF;
+    --tertiary: #FFFFFF;
+    --color: #000000;        */
+
+.application {
+    -fx-font-family: sans-serif;
+}
+
+.anchor-pane {
+    -fx-background-color: #AFDBDF;
+}
+
+.container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 16;
+}
+
+.pane {
+    -fx-background-color: #000695;
+    -fx-background-radius: 16 0 0 16;
+}
+
+.rotated-pane {
+    -fx-background-color: #000695;
+}
+
+.h1 {
+    -fx-font-size: 48px;
+    -fx-font-weight: 700;
+    -fx-text-align: centre;
+}
+
+.h3 {
+    -fx-font-size: 20px;
+    -fx-font-weight: 400;
+}
+
+.p {
+    -fx-font-size: 16px;
+    -fx-font-weight: 300;
+    -fx-text-fill: #000000;
+}
+
+.error {
+    -fx-font-size: 14px;
+    -fx-font-weight: 100;
+}
+
+.textfield {
+    -fx-font-size: 16px;
+    -fx-font-weight: 300;
+}
+
+.password-field {
+    -fx-font-size: 16px;
+    -fx-font-weight: 300;
+}
+
+.button {
+    -fx-background-color: #000695;
+    -fx-color: #000000;
+    -fx-font-weight: 700;
+    -fx-background-radius: 10;
+    -fx-font-size: 20px;
+    -fx-text-align: centre;
+}
+
+.button:hover {
+    -fx-background-color: #AFDBDF;
+}
+
+.help-icon:hover {
+    -fx-background-color: #AFDBDF;
+    -fx-background-radius: 99;
+}

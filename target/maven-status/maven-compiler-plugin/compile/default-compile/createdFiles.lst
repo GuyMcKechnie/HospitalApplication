@@ -1,0 +1,8 @@
+ha\hospitalapplication\DatabaseManager.class
+ha\hospitalapplication\Patient.class
+ha\hospitalapplication\User.class
+ha\hospitalapplication\App.class
+ha\hospitalapplication\Controller.class
+ha\hospitalapplication\PatientManager.class
+module-info.class
+ha\hospitalapplication\DataValidation.class
