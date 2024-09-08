@@ -14,28 +14,40 @@ import javafx.scene.text.Text;
     they are done in the sign-up process.
  */
 public class DataValidation {
-
-    /*
-     * Presence and Length check to ensure data is inputted.
+    /**
+     * Performs a presence and length check on the input string to ensure it is not
+     * empty and has a minimum length of 2 characters.
+     * 
+     * @param stringToValidate the input string to be validated
+     * @param errorTextObject  the Text object to display the error message if the
+     *                         validation fails
+     * @return true if the input string is valid, false otherwise
      */
-    public boolean presenceAndLengthCheck(TextField textField, Text text) {
-        if (textField == null || textField.getText().length() <= 1) {
-            text.setText("Enter at least one character!");
+    public boolean presenceAndLengthCheck(String stringToValidate, Text errorTextObject) {
+        if (stringToValidate == null || stringToValidate.length() <= 1) {
+            errorTextObject.setText("Enter at least one character!");
             return false;
         } else {
             return true;
         }
     }
 
-    /*
-     * Type check to ensure data is valid by checking it against a string of valid
+    /**
+     * Performs a type check on the input string to ensure it only contains valid
      * characters.
+     * 
+     * @param stringToValidate        the input string to be validated
+     * @param errorTextObject         the Text object to display the error message
+     *                                if the validation fails
+     * @param allowedCharactersString a string of valid characters that the input
+     *                                string can contain
+     * @return true if the input string is valid, false otherwise
      */
-    public boolean typeCheck(TextField textField, Text text, String validString) {
-        for (int i = 0; i < textField.getText().length(); i++) {
-            if (!Character.isLetterOrDigit(textField.getText().charAt(i))
-                    && !(validString.indexOf(textField.getText().charAt(i)) >= 0)) {
-                text.setText("Invalid characters!");
+    public boolean typeCheck(String stringToValidate, Text errorTextObject, String allowedCharactersString) {
+        for (int i = 0; i < stringToValidate.length(); i++) {
+            if (!Character.isLetterOrDigit(stringToValidate.charAt(i))
+                    && !(allowedCharactersString.indexOf(stringToValidate.charAt(i)) >= 0)) {
+                errorTextObject.setText("Invalid characters!");
                 return false;
             }
             i++;
