@@ -80,7 +80,7 @@
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="p" text="Don't have an account?" />
-                                    <Text fill="#000695" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="p" text="Sign Up">
+                                    <Text fx:id="signIn_signUpButton" fill="#000695" onMouseClicked="#handleSendToSignUp" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="p" text="Sign Up">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>

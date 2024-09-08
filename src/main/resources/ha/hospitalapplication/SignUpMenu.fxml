@@ -8,6 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -22,50 +23,50 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="380.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="SIGN IN" />
-                        <VBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="SIGN UP" />
+                        <VBox spacing="30.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Email">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <TextField fx:id="signUp_EmailInput" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor>
-                              </TextField>
-                              <Text layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Password">
-                                 <VBox.margin>
-                                    <Insets top="30.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <TextField fx:id="signUp_PasswordInput" layoutX="10.0" layoutY="308.0" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor>
-                              </TextField>
-                              <Text layoutX="10.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Admin Password">
-                                 <VBox.margin>
-                                    <Insets top="30.0" />
-                                 </VBox.margin>
-                              </Text>
-                              <TextField fx:id="signUp_AdminPasswordInput" layoutX="10.0" layoutY="43.0" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
-                                 <cursor>
-                                    <Cursor fx:constant="TEXT" />
-                                 </cursor>
-                              </TextField>
-                              <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
-                                 <VBox.margin>
-                                    <Insets top="40.0" />
-                                 </VBox.margin>
+                              <FlowPane hgap="20.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Email" />
+                                    <Text fx:id="signUp_EmailError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="267.0068359375" />
+                                    <TextField fx:id="signUp_EmailInput" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </FlowPane>
+                              <FlowPane hgap="20.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Password" />
+                                    <Text fx:id="signUp_PasswordError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="230.8020782470703" />
+                                    <TextField fx:id="signUp_PasswordInput" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </FlowPane>
+                              <FlowPane hgap="20.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Admin Password" />
+                                    <Text fx:id="signUp_AdminPasswordError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="162.37437438964844" />
+                                    <TextField fx:id="signUp_AdminPasswordInput" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
+                                       <cursor>
+                                          <Cursor fx:constant="TEXT" />
+                                       </cursor>
+                                    </TextField>
+                                 </children>
+                              </FlowPane>
+                              <Button mnemonicParsing="false" onAction="#handleSignUp" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
                               </Button>
                            </children>
                            <VBox.margin>
-                              <Insets left="20.0" right="20.0" top="60.0" />
+                              <Insets left="20.0" right="20.0" top="30.0" />
                            </VBox.margin>
                         </VBox>
                      </children>

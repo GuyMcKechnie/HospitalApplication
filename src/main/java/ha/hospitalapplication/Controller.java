@@ -1,11 +1,15 @@
 package ha.hospitalapplication;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 
 public class Controller {
 
@@ -55,6 +59,26 @@ public class Controller {
     }
 
     /*
+     * Send to sign-up process.
+     */
+    @FXML
+    Text signIn_SignUpButton;
+
+    /**
+     * Handles the action associated with the sign-up button click.
+     * 
+     * This method is triggered when the sign-up button is clicked. It navigates to
+     * the sign-up menu.
+     * 
+     * @param event the MouseEvent that triggered this method
+     * @throws IOException if an I/O error occurs during the navigation process
+     */
+    @FXML
+    private void handleSendToSignUp(MouseEvent event) throws IOException {
+        App.setRoot("SignUpMenu");
+    }
+
+    /*
      * Sign-up process.
      */
     @FXML
@@ -90,22 +114,22 @@ public class Controller {
         boolean validEmail = false;
         boolean validPassword = false;
         boolean validAdminPassword = false;
-        if (dataValidator.presenceAndLengthCheck(email, signIn_EmailError) == true) {
-            if (dataValidator.typeCheck(email, signIn_EmailError, ".") == true) {
+        if (dataValidator.presenceAndLengthCheck(email, signUp_EmailError) == true) {
+            if (dataValidator.typeCheck(email, signUp_EmailError, ".") == true) {
                 validEmail = true;
             }
         }
-        if (dataValidator.presenceAndLengthCheck(password, signIn_PasswordError) == true) {
-            if (dataValidator.typeCheck(password, signIn_PasswordError, ";#-=.") == true) {
+        if (dataValidator.presenceAndLengthCheck(password, signUp_PasswordError) == true) {
+            if (dataValidator.typeCheck(password, signUp_PasswordError, ";#-=.") == true) {
                 validPassword = true;
             }
         }
-        if (dataValidator.presenceAndLengthCheck(adminPassword, signIn_PasswordError) == true) {
-            if (dataValidator.typeCheck(adminPassword, signIn_PasswordError, ";#-=.") == true) {
+        if (dataValidator.presenceAndLengthCheck(adminPassword, signUp_AdminPasswordError) == true) {
+            if (dataValidator.typeCheck(adminPassword, signUp_AdminPasswordError, ";#-=.") == true) {
                 validAdminPassword = true;
             }
         }
-        System.out.println("Controller:\tSign-In DV:\tEmail: " + validEmail + "\tPassword: " + validPassword
+        System.out.println("Controller:\tSign-Up DV:\tEmail: " + validEmail + "\tPassword: " + validPassword
                 + "\tAdmin Password: " + validAdminPassword);
     }
 

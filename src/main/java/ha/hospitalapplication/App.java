@@ -13,22 +13,22 @@ import java.io.IOException;
  */
 public class App extends Application {
 
-    private static Scene signInScene;
+    private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        signInScene = new Scene(loadFXML("SignInMenu"), 840, 700);
+        scene = new Scene(loadFXML("SignInMenu"), 840, 700);
         stage.setTitle("Hospital Manager");
         stage.setResizable(false);
-        stage.setScene(signInScene);
+        stage.setScene(scene);
         stage.show();
     }
 
     static void setRoot(String fxml) throws IOException {
-        signInScene.setRoot(loadFXML(fxml));
+        scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
