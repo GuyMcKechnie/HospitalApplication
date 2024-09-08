@@ -6,14 +6,13 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 
 public class Controller {
 
-    private DataValidation dataValidator = new DataValidation();
+    public DataValidation dataValidator = new DataValidation();
+    public static DatabaseManager databaseManager = new DatabaseManager();
 
     /*
      * Sign-in process.
@@ -31,11 +30,11 @@ public class Controller {
      * Handles the actions associated with the sign-in process.
      * 
      * This method is triggered when the sign-in button is clicked. It retrieves the
-     * email and password input by the user,
-     * validates them using the DataValidation class, and prints the validation
-     * results to the console.
+     * email and password input by the user, validates them using the DataValidation
+     * class, and prints the validation results to the console.
      * 
-     * @param event the ActionEvent that triggered this method
+     * @param event the ActionEvent that triggered this method invocation
+     * @see DataValidation validation logic and error handling
      */
     @FXML
     private void handleSignIn(ActionEvent event) {
@@ -55,7 +54,15 @@ public class Controller {
                 validPassword = true;
             }
         }
-        System.out.println("Controller:\tSign-In DV:\tEmail: " + validEmail + "\tPassword: " + validPassword);
+        if (validEmail && validPassword) {
+            if (dataValidator.validateUser(email, password, signIn_EmailError, signIn_PasswordError)) {
+                try {
+                    App.setRoot("MainMenu");
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        }
     }
 
     /*
@@ -65,12 +72,12 @@ public class Controller {
     Text signIn_SignUpButton;
 
     /**
-     * Handles the action associated with the sign-up button click.
+     * Handles the actions associated with navigating to the sign-up menu.
      * 
      * This method is triggered when the sign-up button is clicked. It navigates to
-     * the sign-up menu.
+     * the sign-up menu, allowing the user to create a new account.
      * 
-     * @param event the MouseEvent that triggered this method
+     * @param event the MouseEvent that triggered this method invocation
      * @throws IOException if an I/O error occurs during the navigation process
      */
     @FXML
@@ -86,23 +93,24 @@ public class Controller {
     @FXML
     TextField signUp_PasswordInput;
     @FXML
-    TextField signUp_AdminPasswordInput;
+    TextField signUp_AdminCodeInput;
     @FXML
     Text signUp_EmailError;
     @FXML
     Text signUp_PasswordError;
     @FXML
-    Text signUp_AdminPasswordError;
+    Text signUp_AdminCodeError;
 
     /**
-     * Handles the actions associated with the sign-up process.
+     * Initiates the sign-up process when the sign-up button is clicked.
      * 
-     * This method is triggered when the sign-up button is clicked. It retrieves the
-     * email, password, and admin password input by the user,
-     * validates them using the DataValidation class, and prints the validation
-     * results to the console.
+     * Retrieves user input for email, password, and admin code, and validates these
+     * credentials using the DataValidation class. The validation results are then
+     * printed to the console for further processing or logging.
      * 
-     * @param event the ActionEvent that triggered this method
+     * @param event the ActionEvent that triggered this method invocation
+     * 
+     * @see DataValidation validation logic and error handling
      */
     @FXML
     private void handleSignUp(ActionEvent event) {
@@ -110,10 +118,10 @@ public class Controller {
         // Sending the input for validation
         String email = signUp_EmailInput.getText();
         String password = signUp_PasswordInput.getText();
-        String adminPassword = signUp_AdminPasswordInput.getText();
+        String adminCode = signUp_AdminCodeInput.getText();
         boolean validEmail = false;
         boolean validPassword = false;
-        boolean validAdminPassword = false;
+        boolean validAdminCode = false;
         if (dataValidator.presenceAndLengthCheck(email, signUp_EmailError) == true) {
             if (dataValidator.typeCheck(email, signUp_EmailError, ".") == true) {
                 validEmail = true;
@@ -124,22 +132,19 @@ public class Controller {
                 validPassword = true;
             }
         }
-        if (dataValidator.presenceAndLengthCheck(adminPassword, signUp_AdminPasswordError) == true) {
-            if (dataValidator.typeCheck(adminPassword, signUp_AdminPasswordError, ";#-=.") == true) {
-                validAdminPassword = true;
-            }
-        }
+        validAdminCode = dataValidator.adminPasswordValidation(adminCode, signUp_AdminCodeError);
         System.out.println("Controller:\tSign-Up DV:\tEmail: " + validEmail + "\tPassword: " + validPassword
-                + "\tAdmin Password: " + validAdminPassword);
+                + "\tAdmin Password: " + validAdminCode);
+
     }
 
     /**
      * Clears the error labels associated with the sign-in and sign-up processes.
      * 
      * This method is called at the beginning of the handleSignIn and handleSignUp
-     * methods to reset the error labels.
-     * It iterates over a list of Text objects representing the error labels and
-     * sets their text to an empty string.
+     * methods to reset the error labels. It iterates over a list of Text objects
+     * representing the error labels and sets their text to an empty string.
+     * 
      */
     public void clearErrors() {
         List<Text> errors = new ArrayList<>();
@@ -147,7 +152,7 @@ public class Controller {
         errors.add(this.signIn_PasswordError);
         errors.add(this.signUp_EmailError);
         errors.add(this.signUp_PasswordError);
-        errors.add(this.signUp_AdminPasswordError);
+        errors.add(this.signUp_AdminCodeError);
         try {
             for (int i = 0; i < errors.size(); i++) {
                 if (errors.get(i) != null) {

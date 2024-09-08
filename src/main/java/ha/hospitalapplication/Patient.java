@@ -16,6 +16,10 @@ public class Patient {
     private int mealChoice;
     private String medication;
 
+    /**
+     * Represents a patient in the hospital application.
+     * 
+     */
     public Patient(String patientID, String firstName, String surname, int age, String conditions,
             String descriptionOfEvent, LocalDateTime joinDate, int mealChoice, String medication) {
         this.patientID = patientID;

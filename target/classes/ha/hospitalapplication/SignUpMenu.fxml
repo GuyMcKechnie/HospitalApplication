@@ -50,9 +50,9 @@
                               </FlowPane>
                               <FlowPane hgap="20.0">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Admin Password" />
-                                    <Text fx:id="signUp_AdminPasswordError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="162.37437438964844" />
-                                    <TextField fx:id="signUp_AdminPasswordInput" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Admin Code" />
+                                    <Text fx:id="signUp_AdminCodeError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="162.37437438964844" />
+                                    <TextField fx:id="signUp_AdminCodeInput" prefHeight="60.0" prefWidth="340.0" promptText="code#123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>

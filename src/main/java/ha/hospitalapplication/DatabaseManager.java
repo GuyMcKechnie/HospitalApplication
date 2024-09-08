@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DatabaseManager {
 
-    private static final String databaseURL = "jdbc:ucanaccess://Hospital.accdb";
+    private static final String databaseURL = "jdbc:ucanaccess://src\\main\\resources\\ha\\hospitalapplication\\Hospital.accdb";
 
     private Connection conn;
     private PreparedStatement statement;
@@ -13,8 +13,8 @@ public class DatabaseManager {
     public DatabaseManager() {
         try {
             conn = DriverManager.getConnection(databaseURL);
-        } catch (SQLException ex) {
-            System.out.println("Cannot connect");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

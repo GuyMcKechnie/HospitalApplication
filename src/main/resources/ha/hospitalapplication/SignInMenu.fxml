@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -55,6 +56,9 @@
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
+                                       <tooltip>
+                                          <Tooltip text="Enter your email address." />
+                                       </tooltip>
                                     </TextField>
                                  </children>
                               </FlowPane>
@@ -66,6 +70,9 @@
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
+                                       <tooltip>
+                                          <Tooltip text="Enter your password." />
+                                       </tooltip>
                                     </TextField>
                                  </children>
                               </FlowPane>
@@ -76,6 +83,9 @@
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
+                                 <tooltip>
+                                    <Tooltip text="Submit your details." />
+                                 </tooltip>
                               </Button>
                               <HBox alignment="CENTER" spacing="5.0">
                                  <children>
