@@ -2,6 +2,10 @@ package ha.hospitalapplication;
 
 import java.sql.*;
 
+/**
+ *
+ * @author mckec
+ */
 public class DatabaseManager {
 
     private static final String databaseURL = "jdbc:ucanaccess://src\\main\\resources\\ha\\hospitalapplication\\Hospital.accdb";
@@ -10,6 +14,9 @@ public class DatabaseManager {
     private PreparedStatement statement;
     private ResultSet resultSet;
 
+    /**
+     * The constructor for the database manager.
+     */
     public DatabaseManager() {
         try {
             conn = DriverManager.getConnection(databaseURL);
@@ -18,18 +25,34 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     *
+     * @param update
+     * @throws SQLException
+     */
     public void update(String update) throws SQLException {
         statement = conn.prepareStatement(update);
         statement.executeUpdate();
         statement.close();
     }
 
+    /**
+     *
+     * @param stmt
+     * @return
+     * @throws SQLException
+     */
     public ResultSet query(String stmt) throws SQLException {
         statement = conn.prepareStatement(stmt);
         resultSet = statement.executeQuery();
         return resultSet;
     }
 
+    /**
+     *
+     * @param rs
+     * @return
+     */
     public String processResultSet(ResultSet rs) {
         String temp = "";
         try {

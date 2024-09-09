@@ -79,7 +79,19 @@
     -fx-background-color: #afdbdf;
 }
 
+.back-button {
+    -fx-background-color: #ffffff;
+    -fx-color: #000000;
+    -fx-font-weight: 700;
+    -fx-background-radius: 9999;
+    -fx-font-size: 20px;
+    -fx-text-align: centre;
+}
+
+.back-button:hover {
+    -fx-background-color: #afdbdf;
+}
+
 .help-icon:hover {
     -fx-background-color: #afdbdf;
-    -fx-background-radius: 99;
 }

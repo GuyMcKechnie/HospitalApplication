@@ -15,6 +15,11 @@ public class App extends Application {
 
     private static Scene scene;
 
+    /**
+     *
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("SignInMenu"), 840, 700);
@@ -28,11 +33,21 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
+    /**
+     *
+     * @param fxml
+     * @return
+     * @throws IOException
+     */
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }

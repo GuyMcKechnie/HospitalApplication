@@ -73,6 +73,7 @@ public class DataValidation {
      * This method checks if the admin code matches the expected value.
      * 
      * @param adminCodeToValidate the admin code to be validated
+     * @param errorTextObject
      * @return true if the admin code is valid, false otherwise
      */
     public boolean adminPasswordValidation(String adminCodeToValidate, Text errorTextObject) {

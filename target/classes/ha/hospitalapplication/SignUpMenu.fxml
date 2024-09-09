@@ -4,6 +4,8 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
@@ -13,6 +15,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="840.0" stylesheets="@SignUpMenu.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ha.hospitalapplication.Controller">
@@ -22,9 +25,24 @@
          <children>
             <Pane layoutX="10.0" layoutY="10.0" prefHeight="620.0" prefWidth="380.0">
                <children>
-                  <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="380.0">
+                  <VBox alignment="TOP_CENTER" prefHeight="621.0" prefWidth="380.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="SIGN UP" />
+                        <HBox alignment="CENTER_LEFT" spacing="40.0">
+                           <children>
+                              <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleBack" prefHeight="55.0" prefWidth="55.0" styleClass="back-button" text="Button" textFill="TRANSPARENT">
+                                 <graphic>
+                                    <SVGPath content="M13.697 1.875C7.1785 1.875 1.8754 7.1784 1.8754 13.6968c0 6.5188 5.3031 11.822 11.8216 11.8221 6.5186-.0001 11.8217-5.3034 11.8217-11.822C25.5186 7.1783 20.2155 1.875 13.697 1.875Zm0 25.5189c-7.5524 0-13.6967-6.1445-13.6967-13.697C.0003 6.1445 6.1446 0 13.697 0s13.6966 6.1445 13.6966 13.6969c0 7.5525-6.1442 13.697-13.6966 13.697Zm-1.8394-7.8305L6.6542 14.3604c-.1759-.1761-.2746-.4144-.2748-.6631 0-.2487.0987-.4871.2746-.6629L11.8577 7.8309c.1831-.1829.423-.2745.6629-.2745.24 0 .4799.0916.663.2746.3661.366.3661.9597 0 1.3259L9.5802 12.76l10.4325-.001c.5177 0 .9374.4195.9375.9373 0 .518-.4196.9376-.9374.9377L9.5807 14.635l3.6025 3.6024c.3664.3663.3664.9597.0001 1.326-.366.3659-.9596.366-1.3257 0Z" fill="#000695" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" />
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="SIGN UP" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin>
+                        </HBox>
                         <VBox spacing="30.0">
                            <children>
                               <FlowPane hgap="20.0">
@@ -89,29 +107,33 @@
                         </Text>
                      </children>
                      <padding>
-                        <Insets top="40.0" />
+                        <Insets top="10.0" />
                      </padding>
                   </VBox>
                </children></Pane>
             <Pane prefHeight="620.0" prefWidth="380.0" styleClass="pane">
                <children>
-                  <Pane layoutX="326.0" layoutY="564.0" styleClass="help-icon">
-                     <children>
-                        <ImageView fitHeight="128.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@help-circle.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </Pane>
+                  <Pane layoutX="326.0" layoutY="564.0" styleClass="help-icon" />
                   <ImageView fitHeight="377.0" fitWidth="355.0" layoutX="13.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
                         <Image url="@sign-in-image-flipped.png" />
                      </image>
                   </ImageView>
+                  <MenuButton contentDisplay="GRAPHIC_ONLY" graphicTextGap="9.0" layoutX="306.0" layoutY="563.0" mnemonicParsing="false" popupSide="TOP" prefHeight="46.0" prefWidth="63.0">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                     <graphic>
+                        <SVGPath content="M 12 19.5 C 16.1421 19.5 19.5 16.1421 19.5 12 C 19.5 7.8579 16.1421 4.5 12 4.5 C 7.8579 4.5 4.5 7.8579 4.5 12 C 4.5 16.1421 7.8579 19.5 12 19.5 Z M 12 21 C 16.9706 21 21 16.9706 21 12 C 21 7.0294 16.9706 3 12 3 C 7.0294 3 3 7.0294 3 12 C 3 16.9706 7.0294 21 12 21 Z M 12.75 15 V 16.5 H 11.25 V 15 H 12.75 Z M 10.5 10.4318 C 10.5 9.6626 11.1497 9 12 9 C 12.8503 9 13.5 9.6626 13.5 10.4318 C 13.5 10.739 13.3151 11.1031 12.9076 11.5159 C 12.5126 11.9161 12.0104 12.2593 11.5928 12.5292 L 11.25 12.7509 V 14.25 H 12.75 V 13.5623 C 13.1312 13.303 13.5828 12.9671 13.9752 12.5696 C 14.4818 12.0564 15 11.3296 15 10.4318 C 15 8.791 13.6349 7.5 12 7.5 C 10.3651 7.5 9 8.791 9 10.4318 H 10.5 Z&#10;" fill="BLUE" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" />
+                     </graphic>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </MenuButton>
                </children>
             </Pane>
          </children>

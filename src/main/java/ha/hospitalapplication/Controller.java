@@ -8,15 +8,28 @@ import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
+/**
+ *
+ * @author mckec
+ */
 public class Controller {
 
+    /**
+     * Object to call the data validation methods in the data validation class.
+     */
     public DataValidation dataValidator = new DataValidation();
+
+    /**
+     * Static object for fetching the information from the database.
+     */
     public static DatabaseManager databaseManager = new DatabaseManager();
 
     /*
@@ -167,7 +180,7 @@ public class Controller {
     }
 
     /*
-     * Sign in contextual help
+     * Contextual help
      */
 
     @FXML
@@ -175,6 +188,14 @@ public class Controller {
     @FXML
     Button signUp_SignUpButton;
 
+    /**
+     * Handles the contextual help feature.
+     * 
+     * This method is triggered when the F1 key is pressed. It displays a message
+     * dialog providing contextual help for the currently focused component.
+     * 
+     * @param event the KeyEvent that triggered this method invocation
+     */
     @FXML
     private void handleCT(KeyEvent event) {
         if (event.getCode() == KeyCode.F1) {
@@ -205,4 +226,41 @@ public class Controller {
             }
         }
     }
+
+    /*
+     * Handle help
+     */
+    @FXML
+    MenuButton signUp_HelpMenu;
+
+    private void handleHelp(MouseEvent event) throws IOException {
+        if (event.getSource().equals(signUp_HelpMenu)) {
+            App.setRoot("HelpMenu");
+        }
+    }
+
+    /*
+     * Handle back button
+     */
+
+    /**
+     * Navigates back to the sign-in menu.
+     * 
+     * This method is triggered when the back button is clicked. It sets the
+     * application root to "SignInMenu", effectively returning the user to the
+     * sign-in interface.
+     * 
+     * @param event the ActionEvent that triggered this method invocation
+     * 
+     */
+    @FXML
+    private void handleBack(ActionEvent event) {
+        try {
+            App.setRoot("SignInMenu");
+
+        } catch (Exception e) {
+            System.out.println("A");
+        }
+    }
+
 }

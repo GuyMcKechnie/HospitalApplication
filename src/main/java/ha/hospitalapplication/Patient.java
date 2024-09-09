@@ -2,6 +2,10 @@ package ha.hospitalapplication;
 
 import java.time.LocalDateTime;
 
+/**
+ *
+ * @author mckec
+ */
 public class Patient {
 
     private String patientID;
@@ -19,6 +23,15 @@ public class Patient {
     /**
      * Represents a patient in the hospital application.
      * 
+     * @param patientID
+     * @param joinDate
+     * @param firstName
+     * @param surname
+     * @param conditions
+     * @param descriptionOfEvent
+     * @param age
+     * @param mealChoice
+     * @param medication
      */
     public Patient(String patientID, String firstName, String surname, int age, String conditions,
             String descriptionOfEvent, LocalDateTime joinDate, int mealChoice, String medication) {
@@ -33,11 +46,15 @@ public class Patient {
         this.medication = medication;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPatientID() {
         return patientID;
     }
 
-    /*
+    /**
      * This method creates the patient's full name by combining their first name and
      * surname with a space
      */
@@ -45,41 +62,73 @@ public class Patient {
         this.name = firstName + " " + surname;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getConditions() {
         return conditions;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDescriptionOfEvent() {
         return descriptionOfEvent;
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getJoinDate() {
         return joinDate;
     }
 
-    /*
-     * This is a rudementary way of getting the departure date.
+    /**
+     * This is a rudimentary way of getting the departure date.
      */
     public void setEstDepartureDate() {
         this.estimatedDepartureDate = getJoinDate().plusDays(15);
     }
 
+    /**
+     *
+     * @return
+     */
     public LocalDateTime getEstDepartureDate() {
         return estimatedDepartureDate;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getMealChoice() {
         return mealChoice;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getMedication() {
         return medication;
     }
