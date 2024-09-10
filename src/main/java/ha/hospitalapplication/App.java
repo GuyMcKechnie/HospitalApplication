@@ -1,12 +1,12 @@
 package ha.hospitalapplication;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * JavaFX App
@@ -14,6 +14,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
+    private static Stage stage;
 
     /**
      *
@@ -23,6 +24,16 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("SignInMenu"), 840, 700);
+        App.stage = stage;
+        stage.setTitle("Hospital Manager");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    static void alterMain() throws IOException {
+        stage.close();
+        scene = new Scene(loadFXML("MainMenu"), 1500, 750);
         stage.setTitle("Hospital Manager");
         stage.setResizable(false);
         stage.setScene(scene);

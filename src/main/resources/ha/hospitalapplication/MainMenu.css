@@ -1,0 +1,84 @@
+/*Colours*/
+/*    --primary: #000695;
+    --secondary: #AFDBDF;
+    --tertiary: #FFFFFF;
+    --color: #000000;        */
+
+.application {
+    -fx-font-family: sans-serif;
+}
+
+.anchor-pane {
+    -fx-background-color: #afdbdf;
+}
+
+.container {
+    -fx-background-color: #ffffff;
+}
+
+.pane {
+    -fx-background-color: #000695;
+    -fx-background-radius: 16 16 16 16;
+}
+
+.scroll-container {
+    -fx-background-color: #ffffff;
+}
+.text-container {
+    -fx-background-color: #eeeeee;
+}
+
+.h1 {
+    -fx-font-size: 35px;
+    -fx-font-weight: 700;
+    -fx-text-align: centre;
+}
+
+.h2 {
+    -fx-text-fill: #313131;
+    -fx-font-size: 28px;
+    -fx-font-weight: 100;
+}
+.h3 {
+    -fx-font-size: 20px;
+    -fx-font-weight: 400;
+}
+
+.p {
+    -fx-font-size: 16px;
+    -fx-font-weight: 300;
+    -fx-text-fill: #000000;
+}
+
+.tooltip {
+    -fx-font-size: 14px;
+    -fx-font-weight: 100;
+
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000695;
+}
+
+.image-container {
+    -fx-background-color: #000695;
+    -fx-background-radius: 16;
+}
+
+.button {
+    -fx-background-color: #000695;
+    -fx-color: #000000;
+    -fx-font-weight: 700;
+    -fx-background-radius: 99;
+    -fx-font-size: 20px;
+    -fx-text-align: centre;
+}
+
+.button:hover {
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-background-color: #00046f;
+}
+
+.help-text {
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+}

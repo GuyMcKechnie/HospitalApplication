@@ -115,7 +115,7 @@ public class Controller {
             return;
         }
         try {
-            App.setRoot("MainMenu");
+            App.alterMain();
         } catch (IOException e) {
             System.out.println(e);
         }
