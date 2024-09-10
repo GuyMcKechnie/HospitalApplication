@@ -23,8 +23,15 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("SignInMenu"), 840, 700);
-        App.stage = stage;
+        /*
+         * scene = new Scene(loadFXML("SignInMenu"), 840, 700);
+         * App.stage = stage;
+         * stage.setTitle("Hospital Manager");
+         * stage.setResizable(false);
+         * stage.setScene(scene);
+         * stage.show();
+         */
+        scene = new Scene(loadFXML("MainMenu"), 1500, 750);
         stage.setTitle("Hospital Manager");
         stage.setResizable(false);
         stage.setScene(scene);

@@ -1,23 +1,30 @@
 package ha.hospitalapplication;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-public class Controller {
+public class Controller implements Initializable {
 
     /**
      * Object to call the data validation methods in the validation class.
@@ -251,7 +258,54 @@ public class Controller {
         try {
             App.setRoot("SignInMenu");
         } catch (IOException e) {
-            System.out.println("A");
+            System.out.println(e);
         }
     }
+
+    @FXML
+    TableView<Patient> mm_PatientTable;
+    @FXML
+    TableColumn<Patient, String> mm_PatientTable_firstName;
+
+    private void handlePatientList() {
+        mm_PatientTable_firstName.setCellValueFactory(new PropertyValueFactory<>("PatientID"));
+        mm_PatientTable.setItems(PatientManager.getPatientList());
+    }
+
+    @FXML
+    Label mm_PatientID;
+
+    @FXML
+    Label mm_PatientName;
+
+    @FXML
+    Label mm_PatientGender;
+
+    @FXML
+    Label mm_PatientAge;
+
+    @FXML
+    Label mm_PatientJoinDate;
+
+    @FXML
+    private void handleSelectedPatient() {
+        Patient selectedPatient = mm_PatientTable.getSelectionModel().getSelectedItem();
+        int num = mm_PatientTable.getSelectionModel().getSelectedIndex();
+
+        if ((num - 1) < -1) {
+            return;
+        }
+
+        mm_PatientID.setText(String.valueOf(selectedPatient.getPatientID()));
+        mm_PatientName.setText(selectedPatient.getName());
+        mm_PatientGender.setText(selectedPatient.getGender());
+        mm_PatientAge.setText(String.valueOf(selectedPatient.getAge()));
+        mm_PatientJoinDate.setText(String.valueOf(selectedPatient.getJoinDate()));
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        handlePatientList();
+    }
+
 }

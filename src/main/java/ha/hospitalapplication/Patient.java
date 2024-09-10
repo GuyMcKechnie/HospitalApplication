@@ -8,10 +8,11 @@ import java.time.LocalDateTime;
  */
 public class Patient {
 
-    private String patientID;
+    private int patientID;
     private String firstName;
     private String surname;
     private String name;
+    private String gender;
     private int age;
     private String conditions;
     private String descriptionOfEvent;
@@ -33,11 +34,12 @@ public class Patient {
      * @param mealChoice
      * @param medication
      */
-    public Patient(String patientID, String firstName, String surname, int age, String conditions,
+    public Patient(int patientID, String firstName, String surname, String gender, int age, String conditions,
             String descriptionOfEvent, LocalDateTime joinDate, int mealChoice, String medication) {
         this.patientID = patientID;
         this.firstName = firstName;
         this.surname = surname;
+        this.gender = gender;
         this.age = age;
         this.conditions = conditions;
         this.descriptionOfEvent = descriptionOfEvent;
@@ -50,7 +52,7 @@ public class Patient {
      *
      * @return
      */
-    public String getPatientID() {
+    public int getPatientID() {
         return patientID;
     }
 
@@ -67,7 +69,12 @@ public class Patient {
      * @return
      */
     public String getName() {
+        setName();
         return name;
+    }
+
+    public String getGender() {
+        return gender;
     }
 
     /**
