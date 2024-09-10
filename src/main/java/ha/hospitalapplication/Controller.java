@@ -1,8 +1,11 @@
 package ha.hospitalapplication;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -161,7 +164,15 @@ public class Controller {
         if (validator.validateEmail(email, signUp_EmailErrorObject, ALLOWED_EMAIL_STRING)
                 && validator.validatePassword(password, signUp_PasswordErrorObject, ALLOWED_PASSWORD_STRING)
                 && authenticator.adminCodeAuth(adminCode, signUp_AdminCodeErrorObject)) {
-            // Todo : Add the user to the database
+            try {
+                databaseManager
+                        .update("INSERT INTO tblStaff (email, password) VALUES ('" + email + "','" + password + "');");
+
+                JOptionPane.showMessageDialog(null,
+                        "You (" + email + ") have been added to the database! Remember your password!");
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
         }
     }
 
