@@ -48,8 +48,8 @@
                               <FlowPane hgap="20.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Email" />
-                                    <Text fx:id="signUp_EmailError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="267.0068359375" />
-                                    <TextField fx:id="signUp_EmailInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
+                                    <Text fx:id="signUp_EmailErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="267.0068359375" />
+                                    <TextField fx:id="signUp_EmailInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -62,8 +62,8 @@
                               <FlowPane hgap="20.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Password" />
-                                    <Text fx:id="signUp_PasswordError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="230.8020782470703" />
-                                    <TextField fx:id="signUp_PasswordInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
+                                    <Text fx:id="signUp_PasswordErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="230.8020782470703" />
+                                    <TextField fx:id="signUp_PasswordInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -76,8 +76,8 @@
                               <FlowPane hgap="20.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Admin Code" />
-                                    <Text fx:id="signUp_AdminCodeError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="162.37437438964844" />
-                                    <TextField fx:id="signUp_AdminCodeInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="code#123" styleClass="textfield">
+                                    <Text fx:id="signUp_AdminCodeErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="162.37437438964844" />
+                                    <TextField fx:id="signUp_AdminCodeInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="code#123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -87,7 +87,7 @@
                                     </TextField>
                                  </children>
                               </FlowPane>
-                              <Button fx:id="signUp_SignUpButton" mnemonicParsing="false" onAction="#handleSignUp" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
+                              <Button fx:id="signUp_SignUpButton" mnemonicParsing="false" onAction="#handleSignUp" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>

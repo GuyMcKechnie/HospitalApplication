@@ -57,8 +57,8 @@
                               <FlowPane hgap="20.0" prefWrapLength="1000.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Email" />
-                                    <Text fx:id="signIn_EmailError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="268.67652130126953" />
-                                    <TextField fx:id="signIn_EmailInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
+                                    <Text fx:id="signIn_EmailErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="268.67652130126953" />
+                                    <TextField fx:id="signIn_EmailInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -71,8 +71,8 @@
                               <FlowPane hgap="20.0" prefWrapLength="1000.0">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Password" />
-                                    <Text fx:id="signIn_PasswordError" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="231.46673583984375" />
-                                    <TextField fx:id="signIn_PasswordInput" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
+                                    <Text fx:id="signIn_PasswordErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="231.46673583984375" />
+                                    <TextField fx:id="signIn_PasswordInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -82,7 +82,7 @@
                                     </TextField>
                                  </children>
                               </FlowPane>
-                              <Button fx:id="signIn_SignInButton" mnemonicParsing="false" onAction="#handleSignIn" onKeyPressed="#handleCT" prefHeight="60.0" prefWidth="340.0" text="Sign In">
+                              <Button fx:id="signIn_SignInButton" mnemonicParsing="false" onAction="#handleSignIn" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" text="Sign In">
                                  <VBox.margin>
                                     <Insets top="50.0" />
                                  </VBox.margin>

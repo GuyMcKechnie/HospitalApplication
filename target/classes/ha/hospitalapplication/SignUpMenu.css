@@ -78,7 +78,7 @@
 .button:hover {
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
-}s
+}
 
 .back-button {
     -fx-background-color: #ffffff;
