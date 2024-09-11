@@ -3,6 +3,7 @@ package ha.hospitalapplication;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -23,36 +24,43 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 
 public class Controller implements Initializable {
 
     /**
      * Object to call the data validation methods in the validation class.
-     * 
+     *
      * @see Validator
      */
     public static Validator validator = new Validator();
 
     /**
-     * Object to call the data authentication methods in the authentication class.
-     * 
+     * Object to call the data authentication methods in the authentication
+     * class.
+     *
      * @see Authenticator
      */
     public static Authenticator authenticator = new Authenticator();
 
     /**
      * Object to call the help methods in the help class.
-     * 
+     *
      * @see Help
      */
     public static Help help = new Help();
 
     /**
      * Static object for fetching the information from the database.
-     * 
+     *
      * @see DatabaseManager
      */
     public static DatabaseManager databaseManager = new DatabaseManager();
+
+    /**
+     * Static object for fetching methods in the PatientManager class
+     */
+    public static PatientManager patientManager = new PatientManager();
 
     /*
      * Variables used in sign-in/sign-up
@@ -97,11 +105,11 @@ public class Controller implements Initializable {
 
     /**
      * Handles the actions associated with the sign-in process.
-     * 
-     * This method is triggered when the sign-in button is clicked. It retrieves the
-     * email and password input by the user, validates them using the DataValidation
-     * class, and prints the validation results to the console.
-     * 
+     *
+     * This method is triggered when the sign-in button is clicked. It retrieves
+     * the email and password input by the user, validates them using the
+     * DataValidation class, and prints the validation results to the console.
+     *
      * @param event the ActionEvent that triggered this method invocation
      * @see Validator validation logic and error handling
      */
@@ -130,10 +138,10 @@ public class Controller implements Initializable {
 
     /**
      * Handles the actions associated with navigating to the sign-up menu.
-     * 
-     * This method is triggered when the sign-up button is clicked. It navigates to
-     * the sign-up menu, allowing the user to create a new account.
-     * 
+     *
+     * This method is triggered when the sign-up button is clicked. It navigates
+     * to the sign-up menu, allowing the user to create a new account.
+     *
      * @param event the MouseEvent that triggered this method invocation
      * @throws IOException if an I/O error occurs during the navigation process
      */
@@ -149,15 +157,14 @@ public class Controller implements Initializable {
     /*
      * Sign-up process.
      */
-
     /**
      * Initiates the sign-up process when the sign-up button is clicked.
-     * 
-     * Retrieves user input for email, password, and admin code, and validates these
-     * credentials using the validator class and authenticator.
-     * 
+     *
+     * Retrieves user input for email, password, and admin code, and validates
+     * these credentials using the validator class and authenticator.
+     *
      * @param event the ActionEvent that triggered this method invocation
-     * 
+     *
      * @see Validator validation logic and error handling
      * @see Authenticator authenticator logic and error handling
      */
@@ -184,12 +191,14 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Clears the error labels associated with the sign-in and sign-up processes.
-     * 
-     * This method is called at the beginning of the handleSignIn and handleSignUp
-     * methods to reset the error labels. It iterates over a list of Text objects
-     * representing the error labels and sets their text to an empty string.
-     * 
+     * Clears the error labels associated with the sign-in and sign-up
+     * processes.
+     *
+     * This method is called at the beginning of the handleSignIn and
+     * handleSignUp methods to reset the error labels. It iterates over a list
+     * of Text objects representing the error labels and sets their text to an
+     * empty string.
+     *
      */
     private void clearErrors() {
         List<Text> errors = new ArrayList<>();
@@ -211,10 +220,11 @@ public class Controller implements Initializable {
 
     /**
      * Handles the contextual help feature.
-     * 
-     * This method is triggered when the F1 key is pressed. It displays a message
-     * dialog providing contextual help for the currently focused component.
-     * 
+     *
+     * This method is triggered when the F1 key is pressed. It displays a
+     * message dialog providing contextual help for the currently focused
+     * component.
+     *
      * @param event the KeyEvent that triggered this method invocation
      */
     @FXML
@@ -233,7 +243,7 @@ public class Controller implements Initializable {
 
     /**
      * add javadoc
-     * 
+     *
      * @param event
      * @throws IOException
      */
@@ -245,13 +255,13 @@ public class Controller implements Initializable {
 
     /**
      * Navigates back to the sign-in menu.
-     * 
+     *
      * This method is triggered when the back button is clicked. It sets the
      * application root to "SignInMenu", effectively returning the user to the
      * sign-in interface.
-     * 
+     *
      * @param event the ActionEvent that triggered this method invocation
-     * 
+     *
      */
     @FXML
     private void handleBack(ActionEvent event) {
@@ -265,12 +275,7 @@ public class Controller implements Initializable {
     @FXML
     TableView<Patient> mm_PatientTable;
     @FXML
-    TableColumn<Patient, String> mm_PatientTable_firstName;
-
-    private void handlePatientList() {
-        mm_PatientTable_firstName.setCellValueFactory(new PropertyValueFactory<>("PatientID"));
-        mm_PatientTable.setItems(PatientManager.getPatientList());
-    }
+    TableColumn<Patient, String> mm_PatientTableColumn;
 
     @FXML
     Label mm_PatientID;
@@ -286,26 +291,42 @@ public class Controller implements Initializable {
 
     @FXML
     Label mm_PatientJoinDate;
+    
+    @FXML
+    Label mm_ConditionText;
+    
+    @FXML
+    Label mm_DescriptionText;
+    
+    @FXML
+    Label mm_MedicationText;
+    @FXML
+    Label mm_EstimatedDepartureText;
 
     @FXML
     private void handleSelectedPatient() {
         Patient selectedPatient = mm_PatientTable.getSelectionModel().getSelectedItem();
         int num = mm_PatientTable.getSelectionModel().getSelectedIndex();
-
         if ((num - 1) < -1) {
             return;
         }
 
-        mm_PatientID.setText(String.valueOf(selectedPatient.getPatientID()));
+        mm_PatientID.setText("(" + String.valueOf(selectedPatient.getPatientID()) + ")");
         mm_PatientName.setText(selectedPatient.getName());
-        mm_PatientGender.setText(selectedPatient.getGender());
+        mm_PatientGender.setText(selectedPatient.getGender()); //add | in builder
         mm_PatientAge.setText(String.valueOf(selectedPatient.getAge()));
-        mm_PatientJoinDate.setText(String.valueOf(selectedPatient.getJoinDate()));
+        mm_PatientJoinDate.setText(selectedPatient.formatDate(selectedPatient.getJoinDate()));
+        mm_ConditionText.setText(selectedPatient.getConditions());
+        mm_DescriptionText.setText(selectedPatient.getDescriptionOfEvent());
+        mm_MedicationText.setText(selectedPatient.getMedication());
+        mm_EstimatedDepartureText.setText(selectedPatient.formatDate(selectedPatient.getEstDepartureDate()));
+        
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        handlePatientList();
+        mm_PatientTable.setItems(PatientManager.getPatientList());
+        mm_PatientTableColumn.setCellValueFactory(new PropertyValueFactory<>("patientInformation"));
     }
 
 }

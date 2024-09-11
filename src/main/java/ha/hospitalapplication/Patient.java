@@ -1,6 +1,7 @@
 package ha.hospitalapplication;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -20,10 +21,11 @@ public class Patient {
     private LocalDateTime estimatedDepartureDate;
     private int mealChoice;
     private String medication;
+    private String patientInformation;
 
     /**
      * Represents a patient in the hospital application.
-     * 
+     *
      * @param patientID
      * @param joinDate
      * @param firstName
@@ -57,8 +59,8 @@ public class Patient {
     }
 
     /**
-     * This method creates the patient's full name by combining their first name and
-     * surname with a space
+     * This method creates the patient's full name by combining their first name
+     * and surname with a space
      */
     public void setName() {
         this.name = firstName + " " + surname;
@@ -74,7 +76,9 @@ public class Patient {
     }
 
     public String getGender() {
-        return gender;
+        String formattedString = this.gender.substring(0, 1).toUpperCase();
+        formattedString += this.gender.substring(1);
+        return formattedString;
     }
 
     /**
@@ -101,6 +105,12 @@ public class Patient {
         return descriptionOfEvent;
     }
 
+    public String formatDate(LocalDateTime dateTimeObject) {
+        String formattedDate = dateTimeObject.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        formattedDate += " @ " + dateTimeObject.format(DateTimeFormatter.ofPattern("hh:mm"));
+        return formattedDate;
+    }
+
     /**
      *
      * @return
@@ -112,16 +122,8 @@ public class Patient {
     /**
      * This is a rudimentary way of getting the departure date.
      */
-    public void setEstDepartureDate() {
-        this.estimatedDepartureDate = getJoinDate().plusDays(15);
-    }
-
-    /**
-     *
-     * @return
-     */
     public LocalDateTime getEstDepartureDate() {
-        return estimatedDepartureDate;
+        return getJoinDate().plusDays(15);
     }
 
     /**
@@ -138,6 +140,15 @@ public class Patient {
      */
     public String getMedication() {
         return medication;
+    }
+
+    public String getPatientInformation() {
+        setPatientInformation();
+        return patientInformation;
+    }
+
+    private void setPatientInformation() {
+        this.patientInformation = "(" + getPatientID() + ")\t" + getName();
     }
 
 }
