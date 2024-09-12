@@ -334,7 +334,6 @@ public class Controller implements Initializable {
         if ((num - 1) < -1) {
             return;
         }
-
         mm_PatientID.setText("(" + String.valueOf(selectedPatient.getPatientID()) + ")");
         mm_PatientName.setText(selectedPatient.getName());
         mm_PatientGender.setText(selectedPatient.getGender()); // add | in builder
@@ -344,7 +343,19 @@ public class Controller implements Initializable {
         mm_DescriptionText.setText(selectedPatient.getDescriptionOfEvent());
         mm_MedicationText.setText(selectedPatient.getMedication());
         mm_EstimatedDepartureText.setText(selectedPatient.formatDate(selectedPatient.getEstDepartureDate()));
+    }
 
+    private void handleInitPatient() {
+        Patient selectedPatient = patientManager.getPatient(patientManager.getSize());
+        mm_PatientID.setText("(" + String.valueOf(selectedPatient.getPatientID()) + ")");
+        mm_PatientName.setText(selectedPatient.getName());
+        mm_PatientGender.setText(selectedPatient.getGender()); // add | in builder
+        mm_PatientAge.setText(String.valueOf(selectedPatient.getAge()));
+        mm_PatientJoinDate.setText(selectedPatient.formatDate(selectedPatient.getJoinDate()));
+        mm_ConditionText.setText(selectedPatient.getConditions());
+        mm_DescriptionText.setText(selectedPatient.getDescriptionOfEvent());
+        mm_MedicationText.setText(selectedPatient.getMedication());
+        mm_EstimatedDepartureText.setText(selectedPatient.formatDate(selectedPatient.getEstDepartureDate()));
     }
 
     @FXML
@@ -393,6 +404,7 @@ public class Controller implements Initializable {
         }
         try {
             patientManager.removePatient(patientID);
+            handleMainSendBack(event);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -439,6 +451,12 @@ public class Controller implements Initializable {
             this.mm_PatientTable.setItems(PatientManager.getPatientList());
             this.mm_PatientTableColumn.setCellValueFactory(new PropertyValueFactory<>("patientInformation"));
         } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            handleInitPatient();
+        } catch (Exception e) {
+            System.out.println(e);
         }
         try {
             String[] mealChoices = { "1", "2", "3" };
@@ -446,6 +464,7 @@ public class Controller implements Initializable {
             ap_MealChoiceSelect.getItems().addAll(mealChoices);
             ap_GenderSelect.getItems().addAll(genderChoices);
         } catch (Exception e) {
+            System.out.println(e);
         }
     }
 

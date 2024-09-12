@@ -47,7 +47,7 @@ public class PatientManager {
     public void removePatient(int patientID) {
         try {
             Controller.databaseManager.update("DELETE * FROM tblPatients WHERE PatientID = '" + patientID + "';");
-            JOptionPane.showMessageDialog(null, "Patient has been removed!");
+            JOptionPane.showMessageDialog(null, "Patient (ID = " + patientID + ") has been removed!");
         } catch (HeadlessException | SQLException e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Patient could not be removed!");
@@ -165,9 +165,5 @@ public class PatientManager {
 
     public String combineDateTime(LocalDate date, String time) {
         return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + time + ":00";
-    }
-
-    public void removePatient() {
-
     }
 }
