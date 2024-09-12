@@ -58,8 +58,6 @@ public class Authenticator {
         } else {
             try (Scanner lineScanner = new Scanner(line).useDelimiter("#")) {
                 while (lineScanner.hasNext()) {
-                    // this.id = lineScanner.nextInt();
-                    // this.email = lineScanner.next();
                     lineScanner.nextInt();
                     lineScanner.next();
                     this.password = lineScanner.next().trim();

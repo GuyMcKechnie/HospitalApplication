@@ -1,0 +1,13 @@
+John#Doe#Male#45#Hypertension#Experienced high blood pressure due to stress at work#2024-08-15 14:30:00#2#Lisinopril
+Jane#Smith#Female#32#Diabetes#Developed Type 2 diabetes from poor diet#2023-12-10 09:45:00#1#Metformin
+Robert#Johnson#Male#60#Arthritis#Chronic joint pain in knees and hands#2024-01-25 11:00:00#3#Ibuprofen
+Emily#Davis#Female#27#Asthma#Developed severe asthma after allergic reaction#2024-03-20 13:15:00#1#Albuterol
+Michael#Brown#Male#50#Heart Disease#Suffered a mild heart attack after years of high cholesterol#2024-07-10 16:00:00#3#Atorvastatin
+Sarah#Williams#Female#40#Anxiety#Underwent a severe anxiety episode triggered by job loss#2024-02-05 10:30:00#2#Sertraline
+Britt#Smith#Female#30#Asthma#Severe breathing difficulties after outdoor activities#2024-09-01 08:15:32#1#Albuterol
+Caiin#Johnson#Male#28#Diabetes#Suffered a hypoglycemic episode at work#2024-09-02 09:45:10#2#Metformin
+Jaime#Brown#Non-binary#22#Allergy#Severe allergic reaction to peanuts#2024-09-03 10:20:50#3#Epinephrine
+Katheryn#Garcia#Female#35#Hypertension#High blood pressure after prolonged stress#2024-09-04 12:05:25#1#Atenolol
+Lauren#Wilson#Female#40#Chronic Migraine#Recurring headaches after an accident#2024-09-05 14:50:43#3#Sumatriptan
+Monica#Martinez#Female#32#Epilepsy#Seizure during physical exercise#2024-09-06 16:30:12#2#Levetiracetam
+Renicee#Lee#Male#45#Arthritis#Joint pain after a sports injury#2024-09-07 18:22:18#1#Ibuprofen

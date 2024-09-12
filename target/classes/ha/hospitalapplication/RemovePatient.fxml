@@ -78,7 +78,7 @@
                                     </TextField>
                                  </children>
                               </FlowPane>
-                              <Button fx:id="rp_RemovePatientButton" mnemonicParsing="false" onAction="#handleSignUp" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="380.0" text="Remove Patient">
+                              <Button fx:id="rp_RemovePatientButton" mnemonicParsing="false" onAction="#handleRemovePatient" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="380.0" text="Remove Patient">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>

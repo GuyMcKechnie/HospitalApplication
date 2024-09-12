@@ -82,3 +82,11 @@
     -fx-font-size: 16px;
     -fx-font-weight: 700;
 }
+
+.hidden-button {
+    -fx-background-color: #afdbdf;
+}
+
+.hidden-button:hover {
+    -fx-background-color: #afdbdf;
+}

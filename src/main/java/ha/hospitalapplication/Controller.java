@@ -122,6 +122,30 @@ public class Controller implements Initializable {
     @FXML
     Label mm_EstimatedDepartureText;
 
+    // Add Patient
+    @FXML
+    TextField ap_NameInput;
+    @FXML
+    TextField ap_SurnameInput;
+    @FXML
+    TextField ap_AgeInput;
+    @FXML
+    TextField ap_ConditionInput;
+    @FXML
+    TextField ap_DescriptionOfEventInput;
+    @FXML
+    TextField ap_MedicationInput;
+    @FXML
+    Button ap_AddPatientButton;
+    @FXML
+    ChoiceBox<String> ap_GenderSelect;
+    @FXML
+    ChoiceBox<String> ap_MealChoiceSelect;
+    @FXML
+    DatePicker ap_AdmissionDateSelect;
+    @FXML
+    TextField ap_AdmissionTime;
+
     // Help
     @FXML
     Button signIn_SignInButton;
@@ -324,38 +348,6 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    TextField ap_NameInput;
-
-    @FXML
-    TextField ap_SurnameInput;
-
-    @FXML
-    TextField ap_AgeInput;
-
-    @FXML
-    TextField ap_ConditionInput;
-    @FXML
-    TextField ap_DescriptionOfEventInput;
-
-    @FXML
-    TextField ap_MedicationInput;
-
-    @FXML
-    Button ap_AddPatientButton;
-
-    @FXML
-    ChoiceBox<String> ap_GenderSelect;
-
-    @FXML
-    ChoiceBox<String> ap_MealChoiceSelect;
-
-    @FXML
-    DatePicker ap_AdmissionDateSelect;
-
-    @FXML
-    TextField ap_AdmissionTime;
-
-    @FXML
     private void addPatient(ActionEvent event) {
         String name = ap_NameInput.getText();
         String surname = ap_SurnameInput.getText();
@@ -385,12 +377,60 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    TextField rp_PatientIDInput;
+
+    @FXML
+    TextField rp_AdminCodeInput;
+    @FXML
+    Text rp_AdminCodeErrorObject;
+
+    @FXML
+    private void handleRemovePatient(ActionEvent event) {
+        int patientID = Integer.parseInt(rp_PatientIDInput.getText());
+        String adminCode = rp_AdminCodeInput.getText();
+        if (!authenticator.adminCodeAuth(adminCode, rp_AdminCodeErrorObject)) {
+            return;
+        }
+        try {
+            patientManager.removePatient(patientID);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        /*
+         * This code can be used to delete the patient that is currently selected in the
+         * list of patients. However it removes the whole RemovePatient flow.
+         * 
+         * Patient selectedPatient =
+         * mm_PatientTable.getSelectionModel().getSelectedItem();
+         * int num = mm_PatientTable.getSelectionModel().getSelectedIndex();
+         * if ((num - 1) < -1) {
+         * return;
+         * }
+         * try {
+         * patientManager.removePatient(selectedPatient.getPatientID());
+         * } catch (Exception e) {
+         * System.out.println(e);
+         * }
+         */
+    }
+
+    @FXML
     private void handleRemovePatientMenuOpen(ActionEvent event) {
         try {
             App.alterScene("RemovePatient", 840, 700);
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    @FXML
+    Button hiddenButton;
+    // OOO SPOOKY HIDDEN BUTTON
+
+    @FXML
+    private void massAddPatients(ActionEvent event) {
+        patientManager.massAddPatients();
     }
 
     @Override
