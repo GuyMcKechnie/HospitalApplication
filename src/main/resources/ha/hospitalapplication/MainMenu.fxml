@@ -15,21 +15,21 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1500.0" styleClass="anchor-pane" stylesheets="@MainMenu.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ha.hospitalapplication.Controller">
+<AnchorPane fx:id="mainMenu" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1500.0" styleClass="anchor-pane" stylesheets="@MainMenu.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ha.hospitalapplication.Controller">
    <children>
       <AnchorPane layoutX="30.399999618530273" layoutY="30.399999618530273" styleClass="pane" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
          <children>
             <AnchorPane prefHeight="100.0" prefWidth="450.0" styleClass="container" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
                <children>
                   <Text layoutX="14.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h2" text="Patients" wrappingWidth="98.0546875" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="29.0" />
-                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" text="Button" textFill="#000695" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="10.0">
+                  <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleAddPatientMenuOpen" text="Button" textFill="#000695" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="10.0">
                      <graphic>
                         <SVGPath content="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8V11H16C16.5523 11 17 11.4477 17 12C17 12.5523 16.5523 13 16 13H13V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V13H8C7.44771 13 7 12.5523 7 12C7 11.4477 7.44772 11 8 11H11V8Z M 12 19.5 C 16.1421 19.5 19.5 16.1421 19.5 12 C 19.5 7.8579 16.1421 4.5 12 4.5 C 7.8579 4.5 4.5 7.8579 4.5 12 C 4.5 16.1421 7.8579 19.5 12 19.5 Z M 12 21 C 16.9706 21 21 16.9706 21 12 C 21 7.0294 16.9706 3 12 3 C 7.0294 3 3 7.0294 3 12 C 3 16.9706 7.0294 21 12 21 Z" fill="WHITE" fillRule="EVEN_ODD" scaleX="4.0" scaleY="4.0" />
                      </graphic>
                      <tooltip>
                         <Tooltip text="Click to add a patient" />
                      </tooltip></Button>
-                  <Button contentDisplay="GRAPHIC_ONLY" layoutX="372.0" layoutY="37.0" mnemonicParsing="false" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                  <Button contentDisplay="GRAPHIC_ONLY" layoutX="372.0" layoutY="37.0" mnemonicParsing="false" onAction="#handleRemovePatientMenuOpen" text="Button" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="360.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <graphic>
                         <SVGPath content="M14.7349 10.54H9.3782v5.534h5.3566ZM10.7174 9.3782h2.6783V8.7087a.6705.6705 90 00-.6695-.6696H11.387a.6705.6705 90 00-.6696.6696Zm6.0262 0a.6696.6696 90 010 1.3391H16.074v6.0262a.6692.6692 90 01-.6696.6696H8.7087a.6692.6692 90 01-.6696-.6695V10.7174H7.3696a.6696.6696 90 010-1.3391H9.3782V8.7087A2.011 2.011 90 0111.387 6.7H12.7262a2.011 2.011 90 012.0087 2.0087v.6695h2.0087Z M 12 19.5 C 16.1421 19.5 19.5 16.1421 19.5 12 C 19.5 7.8579 16.1421 4.5 12 4.5 C 7.8579 4.5 4.5 7.8579 4.5 12 C 4.5 16.1421 7.8579 19.5 12 19.5 Z M 12 21 C 16.9706 21 21 16.9706 21 12 C 21 7.0294 16.9706 3 12 3 C 7.0294 3 3 7.0294 3 12 C 3 16.9706 7.0294 21 12 21 Z" fill="WHITE" fillRule="EVEN_ODD" scaleX="4.0" scaleY="4.0" />
                      </graphic>

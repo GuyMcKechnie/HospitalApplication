@@ -2,13 +2,12 @@ package ha.hospitalapplication;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+import javax.swing.JOptionPane;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -38,11 +37,20 @@ public class PatientManager {
      * @param mealChoice
      * @param medication
      */
-    public void addPatient(int patientID, String firstName, String surname, String gender, int age, String conditions,
-            String descriptionOfEvent, LocalDateTime joinDate, int mealChoice, String medication) {
-        pArr[size] = new Patient(patientID, firstName, surname, gender, age, conditions, descriptionOfEvent, joinDate,
-                mealChoice, medication);
-        size++;
+    public boolean addPatient(String firstName, String surname, String gender, int age, String conditions,
+            String descriptionOfEvent, String joinDate, int mealChoice, String medication) {
+        String query = "INSERT INTO tblPatients (firstName, surname, gender, age, condition, descriptionOfEvent, joinDate, mealChoice, medication) VALUES ('"
+                + firstName + "', '" + surname + "', '" + gender + "', " + age + ", '" + conditions + "', '"
+                + descriptionOfEvent + "', '" + joinDate.toString() + "', " + mealChoice + ", '" + medication + "')";
+        try {
+            Controller.databaseManager.update(query);
+            JOptionPane.showMessageDialog(null, "Patient has been added to the database!");
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Patient could not be added to the database!");
+            return false;
+        }
     }
 
     /**
@@ -81,4 +89,7 @@ public class PatientManager {
         return patientList;
     }
 
+    public String combineDateTime(LocalDate date, String time) {
+        return date.format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + time + ":00";
+    }
 }

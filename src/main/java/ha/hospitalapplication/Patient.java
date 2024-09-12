@@ -26,6 +26,31 @@ public class Patient {
     /**
      * Represents a patient in the hospital application.
      *
+     * @param joinDate
+     * @param firstName
+     * @param surname
+     * @param conditions
+     * @param descriptionOfEvent
+     * @param age
+     * @param mealChoice
+     * @param medication
+     */
+    public Patient(String firstName, String surname, String gender, int age, String conditions,
+            String descriptionOfEvent, LocalDateTime joinDate, int mealChoice, String medication) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.gender = gender;
+        this.age = age;
+        this.conditions = conditions;
+        this.descriptionOfEvent = descriptionOfEvent;
+        this.joinDate = joinDate;
+        this.mealChoice = mealChoice;
+        this.medication = medication;
+    }
+
+    /**
+     * Represents a patient in the hospital application.
+     *
      * @param patientID
      * @param joinDate
      * @param firstName

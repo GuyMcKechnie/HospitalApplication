@@ -2,18 +2,17 @@ package ha.hospitalapplication;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javax.swing.JOptionPane;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
@@ -24,7 +23,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 public class Controller implements Initializable {
 
@@ -62,6 +60,11 @@ public class Controller implements Initializable {
      */
     public static PatientManager patientManager = new PatientManager();
 
+    /**
+     * Static object for fetching methods in the UserManager class
+     */
+    public static UserManager userManager = new UserManager();
+
     /*
      * Variables used in sign-in/sign-up
      */
@@ -94,6 +97,30 @@ public class Controller implements Initializable {
     Text signUp_PasswordErrorObject;
     @FXML
     Text signUp_AdminCodeErrorObject;
+
+    // Main GUI
+    @FXML
+    TableView<Patient> mm_PatientTable;
+    @FXML
+    TableColumn<Patient, String> mm_PatientTableColumn;
+    @FXML
+    Label mm_PatientID;
+    @FXML
+    Label mm_PatientName;
+    @FXML
+    Label mm_PatientGender;
+    @FXML
+    Label mm_PatientAge;
+    @FXML
+    Label mm_PatientJoinDate;
+    @FXML
+    Label mm_ConditionText;
+    @FXML
+    Label mm_DescriptionText;
+    @FXML
+    Label mm_MedicationText;
+    @FXML
+    Label mm_EstimatedDepartureText;
 
     // Help
     @FXML
@@ -130,7 +157,7 @@ public class Controller implements Initializable {
             return;
         }
         try {
-            App.alterMain();
+            App.alterScene("MainMenu", 1500, 750);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -179,12 +206,8 @@ public class Controller implements Initializable {
                 && validator.validatePassword(password, signUp_PasswordErrorObject, ALLOWED_PASSWORD_STRING)
                 && authenticator.adminCodeAuth(adminCode, signUp_AdminCodeErrorObject)) {
             try {
-                databaseManager
-                        .update("INSERT INTO tblStaff (email, password) VALUES ('" + email + "','" + password + "');");
-
-                JOptionPane.showMessageDialog(null,
-                        "You (" + email + ") have been added to the database! Remember your password!");
-            } catch (SQLException e) {
+                userManager.addUser(email, password);
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
@@ -273,35 +296,12 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    TableView<Patient> mm_PatientTable;
-    @FXML
-    TableColumn<Patient, String> mm_PatientTableColumn;
-
-    @FXML
-    Label mm_PatientID;
-
-    @FXML
-    Label mm_PatientName;
-
-    @FXML
-    Label mm_PatientGender;
-
-    @FXML
-    Label mm_PatientAge;
-
-    @FXML
-    Label mm_PatientJoinDate;
-    
-    @FXML
-    Label mm_ConditionText;
-    
-    @FXML
-    Label mm_DescriptionText;
-    
-    @FXML
-    Label mm_MedicationText;
-    @FXML
-    Label mm_EstimatedDepartureText;
+    private void handleMainSendBack(ActionEvent event) {
+        try {
+            App.alterScene("MainMenu", 1500, 750);
+        } catch (IOException e) {
+        }
+    }
 
     @FXML
     private void handleSelectedPatient() {
@@ -313,20 +313,100 @@ public class Controller implements Initializable {
 
         mm_PatientID.setText("(" + String.valueOf(selectedPatient.getPatientID()) + ")");
         mm_PatientName.setText(selectedPatient.getName());
-        mm_PatientGender.setText(selectedPatient.getGender()); //add | in builder
+        mm_PatientGender.setText(selectedPatient.getGender()); // add | in builder
         mm_PatientAge.setText(String.valueOf(selectedPatient.getAge()));
         mm_PatientJoinDate.setText(selectedPatient.formatDate(selectedPatient.getJoinDate()));
         mm_ConditionText.setText(selectedPatient.getConditions());
         mm_DescriptionText.setText(selectedPatient.getDescriptionOfEvent());
         mm_MedicationText.setText(selectedPatient.getMedication());
         mm_EstimatedDepartureText.setText(selectedPatient.formatDate(selectedPatient.getEstDepartureDate()));
-        
+
+    }
+
+    @FXML
+    TextField ap_NameInput;
+
+    @FXML
+    TextField ap_SurnameInput;
+
+    @FXML
+    TextField ap_AgeInput;
+
+    @FXML
+    TextField ap_ConditionInput;
+    @FXML
+    TextField ap_DescriptionOfEventInput;
+
+    @FXML
+    TextField ap_MedicationInput;
+
+    @FXML
+    Button ap_AddPatientButton;
+
+    @FXML
+    ChoiceBox<String> ap_GenderSelect;
+
+    @FXML
+    ChoiceBox<String> ap_MealChoiceSelect;
+
+    @FXML
+    DatePicker ap_AdmissionDateSelect;
+
+    @FXML
+    TextField ap_AdmissionTime;
+
+    @FXML
+    private void addPatient(ActionEvent event) {
+        String name = ap_NameInput.getText();
+        String surname = ap_SurnameInput.getText();
+        int age = Integer.parseInt(ap_AgeInput.getText());
+        String condition = ap_ConditionInput.getText();
+        String descriptionOfEvent = ap_DescriptionOfEventInput.getText();
+        String gender = ap_GenderSelect.getSelectionModel().getSelectedItem();
+        int mealChoice = Integer.parseInt(ap_MealChoiceSelect.getSelectionModel().getSelectedItem());
+        LocalDate admissionDate = ap_AdmissionDateSelect.getValue();
+        String admissionTime = ap_AdmissionTime.getText();
+        String admissionDateTime = patientManager.combineDateTime(admissionDate, admissionTime);
+        String medication = ap_MedicationInput.getText();
+        if (patientManager.addPatient(name, surname, gender, age, condition, descriptionOfEvent, admissionDateTime,
+                mealChoice,
+                medication)) {
+            handleMainSendBack(event);
+        }
+    }
+
+    @FXML
+    private void handleAddPatientMenuOpen(ActionEvent event) {
+        try {
+            App.alterScene("AddPatient", 840, 700);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private void handleRemovePatientMenuOpen(ActionEvent event) {
+        try {
+            App.alterScene("RemovePatient", 840, 700);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mm_PatientTable.setItems(PatientManager.getPatientList());
-        mm_PatientTableColumn.setCellValueFactory(new PropertyValueFactory<>("patientInformation"));
+        try {
+            this.mm_PatientTable.setItems(PatientManager.getPatientList());
+            this.mm_PatientTableColumn.setCellValueFactory(new PropertyValueFactory<>("patientInformation"));
+        } catch (Exception e) {
+        }
+        try {
+            String[] mealChoices = { "1", "2", "3" };
+            String[] genderChoices = { "Male", "Female" };
+            ap_MealChoiceSelect.getItems().addAll(mealChoices);
+            ap_GenderSelect.getItems().addAll(genderChoices);
+        } catch (Exception e) {
+        }
     }
 
 }
