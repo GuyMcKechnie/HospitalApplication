@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -470,8 +472,29 @@ public class Controller implements Initializable {
         mm_PatientImage.setImage(selectedPatient.getPatientImage());
     }
 
+    private boolean validatePatient() {
+        return validator.validateAddPatient(ap_NameInput.getText(), ap_SurnameInput.getText(),
+                ap_ConditionInput.getText(), ap_DescriptionOfEventInput.getText(), ap_MedicationInput.getText(),
+                ap_AdmissionTime.getText(), ap_AgeInput.getText());
+    }
+
     @FXML
     private void addPatient(ActionEvent event) {
+        if (!validatePatient()) {
+            return;
+        }
+        if (ap_GenderSelect.getSelectionModel().getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Gender cannot be empty!");
+            return;
+        }
+        if (ap_MealChoiceSelect.getSelectionModel().getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(null, "Meal choice cannot be empty!");
+            return;
+        }
+        if (ap_AdmissionDateSelect.getValue() == null) {
+            JOptionPane.showMessageDialog(null, "Admission date cannot be empty!");
+            return;
+        }
         String name = ap_NameInput.getText();
         String surname = ap_SurnameInput.getText();
         int age = Integer.parseInt(ap_AgeInput.getText());

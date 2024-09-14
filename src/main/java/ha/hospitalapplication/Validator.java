@@ -1,5 +1,10 @@
 package ha.hospitalapplication;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import javax.swing.JOptionPane;
+
 import javafx.scene.text.Text;
 
 /**
@@ -82,6 +87,62 @@ public class Validator {
     public boolean validatePassword(String inputtedPassword, Text errorObject, String allowedCharactersString) {
         return presenceAndLengthCheck(inputtedPassword, errorObject)
                 && typeCheck(inputtedPassword, errorObject, allowedCharactersString);
+    }
+
+    private boolean textValidation(String stringToValidate) {
+        if (stringToValidate == null || stringToValidate.length() <= 1) {
+            JOptionPane.showMessageDialog(null, "Text cannot be empty!");
+            return false;
+        }
+        for (int i = 0; i < stringToValidate.length(); i++) {
+            char characterToCheck = stringToValidate.charAt(i);
+            if (!Character.isLetter(characterToCheck)) {
+                JOptionPane.showMessageDialog(null, "Text cannot contain characters or numbers!");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean validateAddPatientAdmissionTime(String admissionTimeInput) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+            simpleDateFormat.parse(admissionTimeInput);
+            return true;
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Invalid time format. Please use HH:mm");
+            return false;
+        }
+    }
+
+    private boolean validatePatientAge(String ageString) {
+        try {
+            int age = Integer.parseInt(ageString);
+            if (age < 0) {
+                JOptionPane.showMessageDialog(null, "Age cannot be negative");
+                return false;
+            } else if (age > 120) {
+                JOptionPane.showMessageDialog(null, "Age cannot be over 120");
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid age format. Please use a number");
+            return false;
+        }
+    }
+
+    private boolean validateAddPatientText(String nameInput, String surnameInput, String conditionInput,
+            String descOfEventInput, String medicationInput) {
+        return textValidation(nameInput) && textValidation(surnameInput) && textValidation(conditionInput)
+                && textValidation(descOfEventInput) && textValidation(medicationInput);
+    }
+
+    public boolean validateAddPatient(String nameInput, String surnameInput, String conditionInput,
+            String descOfEventInput, String medicationInput, String admissionTimeInput, String ageInput) {
+        return validateAddPatientText(nameInput, surnameInput, conditionInput, descOfEventInput, medicationInput)
+                && validateAddPatientAdmissionTime(admissionTimeInput) && validatePatientAge(ageInput);
     }
 
 }
