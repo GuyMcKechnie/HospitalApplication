@@ -317,10 +317,19 @@ public class Controller implements Initializable {
     private void handleHelp(KeyEvent event) {
         if (event.getCode() == KeyCode.F1) {
             try {
-                App.alterScene("HelpMenu", 840, 700);
+                App.createHelp();
             } catch (IOException e) {
                 System.out.println(e);
             }
+        }
+    }
+
+    @FXML
+    private void handleHelpButton(ActionEvent event) {
+        try {
+            App.createHelp();
+        } catch (IOException e) {
+            System.out.println(e);
         }
     }
 
@@ -399,8 +408,17 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private void handleHelpBack(ActionEvent event) {
+        App.backHelp();
+    }
+
+    @FXML
     private void handleMainSendBack(ActionEvent event) {
-        App.back();
+        try {
+            App.alterScene("MainMenu", 1500, 750);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     @FXML

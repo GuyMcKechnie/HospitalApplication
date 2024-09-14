@@ -16,6 +16,7 @@ public class App extends Application {
     private static Scene scene;
     private static Scene previousScene;
     private static Stage stage;
+    private static Stage newStage;
 
     /**
      *
@@ -24,42 +25,41 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("SignInMenu"), 840, 700);
+        App.scene = new Scene(loadFXML("SignInMenu"), 840, 700);
         App.stage = stage;
         stage.setTitle("Hospital Manager");
         stage.setResizable(false);
-        stage.setScene(scene);
+        stage.setScene(App.scene);
         stage.show();
-
-        /*
-         * App.stage = stage;
-         * scene = new Scene(loadFXML("MainMenu"), 1500, 750);
-         * stage.setTitle("Hospital Manager");
-         * stage.setResizable(false);
-         * stage.setScene(scene);
-         * stage.show();
-         */
     }
 
-    static void alterScene(String scene, int width, int height) throws IOException {
+    static void alterScene(String sceneToChangeTo, int width, int height) throws IOException {
+        App.previousScene = App.scene;
+        Scene newScene = new Scene(loadFXML(sceneToChangeTo), width, height);
+        App.scene = newScene;
         stage.hide();
-        previousScene = App.scene;
-        stage.setTitle("Hospital Manager");
-        stage.setResizable(false);
-        stage.setScene(new Scene(loadFXML(scene), width, height));
+        stage.setScene(App.scene);
         stage.show();
+    }
+
+    static void createHelp() throws IOException {
+        newStage = new Stage();
+        Scene newScene = new Scene(loadFXML("HelpMenu"), 840, 700);
+        stage.hide();
+        newStage.setScene(newScene);
+        newStage.show();
     }
 
     static void back() {
         stage.hide();
-        stage.setTitle("Hospital Manager");
-        stage.setResizable(false);
-        stage.setScene(previousScene);
+        stage.setScene(App.previousScene);
         stage.show();
+        App.scene = App.previousScene;
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    static void backHelp() {
+        newStage.close();
+        stage.show();
     }
 
     /**
