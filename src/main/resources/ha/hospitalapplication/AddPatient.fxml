@@ -18,7 +18,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleHelp" prefHeight="700.0" prefWidth="840.0" styleClass="anchor-pane" stylesheets="@AddPatient.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ha.hospitalapplication.Controller">
    <children>
@@ -29,7 +28,7 @@
                <children>
                   <ImageView fitHeight="377.0" fitWidth="355.0" layoutX="-13.0" layoutY="160.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
-                        <Image url="@flat-nurse-helping-patient%201.png" />
+                        <Image url="@container-hospital-image.png" />
                      </image>
                   </ImageView>
                   <Button contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="55.0" prefWidth="55.0" styleClass="back-button" text="Button" textFill="TRANSPARENT">
@@ -54,7 +53,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" prefHeight="639.0" prefWidth="434.0" spacing="5.0" styleClass="container">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h1" text="ADD PATIENT" />
+                        <Label alignment="CENTER" styleClass="h1" text="ADD PATIENT" />
                         <VBox prefWidth="340.0">
                            <children>
                               <GridPane prefHeight="369.0" prefWidth="383.0" vgap="35.0">
@@ -139,7 +138,7 @@
                               </GridPane>
                               <Button fx:id="ap_AddPatientButton" mnemonicParsing="false" onAction="#addPatient" prefHeight="60.0" prefWidth="407.0" text="Add Patient">
                                  <VBox.margin>
-                                    <Insets top="25.0" />
+                                    <Insets top="35.0" />
                                  </VBox.margin>
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
@@ -150,17 +149,13 @@
                               </Button>
                            </children>
                            <VBox.margin>
-                              <Insets left="20.0" right="20.0" top="30.0" />
+                              <Insets left="20.0" right="20.0" top="10.0" />
                            </VBox.margin>
                         </VBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="p" text="Press F1 for help or use the menu to the left.">
-                           <VBox.margin>
-                              <Insets top="15.0" />
-                           </VBox.margin>
-                        </Text>
+                        <Label styleClass="p" text="Press F1 for help or use the menu to the left." />
                      </children>
                      <padding>
-                        <Insets top="10.0" />
+                        <Insets top="5.0" />
                      </padding>
                   </VBox>
                </children>

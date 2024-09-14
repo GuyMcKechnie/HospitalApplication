@@ -27,6 +27,7 @@ public class PatientManager {
      * This is the constructor for the patient manager.
      */
     public PatientManager() {
+
         try {
             ResultSet resultSet = Controller.databaseManager.query("SELECT * FROM tblPatients");
             Patient patientObject;
@@ -70,7 +71,7 @@ public class PatientManager {
             String descriptionOfEvent, String joinDate, int mealChoice, String medication) {
         String query = "INSERT INTO tblPatients (firstName, surname, gender, age, condition, descriptionOfEvent, joinDate, mealChoice, medication) VALUES ('"
                 + firstName + "', '" + surname + "', '" + gender + "', " + age + ", '" + conditions + "', '"
-                + descriptionOfEvent + "', '" + joinDate.toString() + "', " + mealChoice + ", '" + medication + "')";
+                + descriptionOfEvent + "', '" + joinDate + "', " + mealChoice + ", '" + medication + "')";
         try {
             Controller.databaseManager.update(query);
             JOptionPane.showMessageDialog(null, "Patient has been added to the database!");

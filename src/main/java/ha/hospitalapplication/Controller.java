@@ -19,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -125,7 +126,15 @@ public class Controller implements Initializable {
     @FXML
     Label mm_MedicationText;
     @FXML
+    ImageView mm_MealChoice_MainMeal;
+    @FXML
+    ImageView mm_MealChoice_SecondaryMeal;
+    @FXML
+    ImageView mm_MealChoice_TertiaryMeal;
+    @FXML
     Label mm_EstimatedDepartureText;
+    @FXML
+    ImageView mm_PatientImage;
 
     // Add Patient
     @FXML
@@ -436,20 +445,29 @@ public class Controller implements Initializable {
         mm_ConditionText.setText(selectedPatient.getConditions());
         mm_DescriptionText.setText(selectedPatient.getDescriptionOfEvent());
         mm_MedicationText.setText(selectedPatient.getMedication());
+        mm_MealChoice_MainMeal.setImage(selectedPatient.getMainMeal());
+        mm_MealChoice_SecondaryMeal.setImage(selectedPatient.getSecondaryMeal());
+        mm_MealChoice_TertiaryMeal.setImage(selectedPatient.getTertiaryMeal());
         mm_EstimatedDepartureText.setText(selectedPatient.formatDate(selectedPatient.getEstDepartureDate()));
+        mm_PatientImage.setImage(selectedPatient.getPatientImage());
     }
 
     private void handleInitPatient() {
         Patient selectedPatient = patientManager.getPatient(patientManager.getSize());
         mm_PatientID.setText("(" + String.valueOf(selectedPatient.getPatientID()) + ")");
         mm_PatientName.setText(selectedPatient.getName());
-        mm_PatientGender.setText(selectedPatient.getGender()); // add | in builder
+        mm_PatientGender.setText(selectedPatient.getGender());
         mm_PatientAge.setText(String.valueOf(selectedPatient.getAge()));
         mm_PatientJoinDate.setText(selectedPatient.formatDate(selectedPatient.getJoinDate()));
         mm_ConditionText.setText(selectedPatient.getConditions());
         mm_DescriptionText.setText(selectedPatient.getDescriptionOfEvent());
         mm_MedicationText.setText(selectedPatient.getMedication());
-        mm_EstimatedDepartureText.setText(selectedPatient.formatDate(selectedPatient.getEstDepartureDate()));
+        mm_MealChoice_MainMeal.setImage(selectedPatient.getMainMeal());
+        mm_MealChoice_SecondaryMeal.setImage(selectedPatient.getSecondaryMeal());
+        mm_MealChoice_TertiaryMeal.setImage(selectedPatient.getTertiaryMeal());
+        mm_EstimatedDepartureText
+                .setText(selectedPatient.formatDate(selectedPatient.getEstDepartureDate()));
+        mm_PatientImage.setImage(selectedPatient.getPatientImage());
     }
 
     @FXML

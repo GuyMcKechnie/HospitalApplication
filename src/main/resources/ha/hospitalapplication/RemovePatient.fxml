@@ -104,7 +104,7 @@
                <children>
                   <ImageView fitHeight="377.0" fitWidth="355.0" layoutX="-6.0" layoutY="151.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <image>
-                        <Image url="@add-patient-image-flipped.png" />
+                        <Image url="@container-image-hospital-flipped.png" />
                      </image>
                   </ImageView>
                   <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="300.0" layoutY="573.0" mnemonicParsing="false" onAction="#handleHelpButton" styleClass="buttonHelp">

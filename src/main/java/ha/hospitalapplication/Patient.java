@@ -3,6 +3,8 @@ package ha.hospitalapplication;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javafx.scene.image.Image;
+
 /**
  *
  * @author mckec
@@ -106,6 +108,16 @@ public class Patient {
         return formattedString;
     }
 
+    public Image getPatientImage() {
+        String malePatient = "/ha/hospitalapplication/male-patient-image.png";
+        String femalePatient = "/ha/hospitalapplication/female-patient-image.png";
+        if (getGender().equalsIgnoreCase("male")) {
+            return new Image(getClass().getResource(malePatient).toExternalForm());
+        } else {
+            return new Image(getClass().getResource(femalePatient).toExternalForm());
+        }
+    }
+
     /**
      *
      * @return
@@ -132,7 +144,7 @@ public class Patient {
 
     public String formatDate(LocalDateTime dateTimeObject) {
         String formattedDate = dateTimeObject.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        formattedDate += " @ " + dateTimeObject.format(DateTimeFormatter.ofPattern("hh:mm"));
+        formattedDate += " @ " + dateTimeObject.format(DateTimeFormatter.ofPattern("HH:mm"));
         return formattedDate;
     }
 
@@ -174,6 +186,44 @@ public class Patient {
 
     private void setPatientInformation() {
         this.patientInformation = "(" + getPatientID() + ")\t" + getName();
+    }
+
+    private String getMealClass() {
+        String mealClass = "";
+        switch (this.mealChoice) {
+            case 1:
+                mealClass += "/ha/hospitalapplication/cake-slice.png" + "#";
+                mealClass += "/ha/hospitalapplication/hamburger.png" + "#";
+                mealClass += "/ha/hospitalapplication/hot-dog.png";
+                return mealClass;
+            case 2:
+                mealClass += "/ha/hospitalapplication/hot-soup.png" + "#";
+                mealClass += "/ha/hospitalapplication/ice-cream.png" + "#";
+                mealClass += "/ha/hospitalapplication/lasagna.png";
+                return mealClass;
+            case 3:
+                mealClass += "/ha/hospitalapplication/noodles.png" + "#";
+                mealClass += "/ha/hospitalapplication/sandwich.png" + "#";
+                mealClass += "/ha/hospitalapplication/spaghetti.png";
+                return mealClass;
+            default:
+                return "";
+        }
+    }
+
+    public Image getMainMeal() {
+        String mainMeal = getMealClass().split("#")[0];
+        return new Image(getClass().getResource(mainMeal).toExternalForm());
+    }
+
+    public Image getSecondaryMeal() {
+        String secondaryMeal = getMealClass().split("#")[1];
+        return new Image(getClass().getResource(secondaryMeal).toExternalForm());
+    }
+
+    public Image getTertiaryMeal() {
+        String tertiaryMeal = getMealClass().split("#")[2];
+        return new Image(getClass().getResource(tertiaryMeal).toExternalForm());
     }
 
 }
