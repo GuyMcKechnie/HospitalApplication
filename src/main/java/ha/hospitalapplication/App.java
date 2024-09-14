@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 public class App extends Application {
 
     private static Scene scene;
+    private static Scene previousScene;
     private static Stage stage;
 
     /**
@@ -23,28 +24,37 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("SignInMenu"), 840, 700);
+        App.stage = stage;
+        stage.setTitle("Hospital Manager");
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+
         /*
-         * scene = new Scene(loadFXML("SignInMenu"), 840, 700);
          * App.stage = stage;
+         * scene = new Scene(loadFXML("MainMenu"), 1500, 750);
          * stage.setTitle("Hospital Manager");
          * stage.setResizable(false);
          * stage.setScene(scene);
          * stage.show();
          */
-        App.stage = stage;
-        scene = new Scene(loadFXML("MainMenu"), 1500, 750);
-        stage.setTitle("Hospital Manager");
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
     }
 
     static void alterScene(String scene, int width, int height) throws IOException {
         stage.hide();
-        Scene newScene = new Scene(loadFXML(scene), width, height);
+        previousScene = App.scene;
         stage.setTitle("Hospital Manager");
         stage.setResizable(false);
-        stage.setScene(newScene);
+        stage.setScene(new Scene(loadFXML(scene), width, height));
+        stage.show();
+    }
+
+    static void back() {
+        stage.hide();
+        stage.setTitle("Hospital Manager");
+        stage.setResizable(false);
+        stage.setScene(previousScene);
         stage.show();
     }
 

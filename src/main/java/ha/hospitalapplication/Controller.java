@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 public class Controller implements Initializable {
@@ -70,6 +71,10 @@ public class Controller implements Initializable {
      */
     private static final String ALLOWED_EMAIL_STRING = ".@";
     private static final String ALLOWED_PASSWORD_STRING = "@;#-=.";
+
+    public static DatabaseManager getDatabaseManager() {
+        return databaseManager;
+    }
 
     /*
      * FXML Objects
@@ -153,6 +158,10 @@ public class Controller implements Initializable {
     Button signUp_SignUpButton;
     @FXML
     MenuButton signUp_HelpMenu;
+    @FXML
+    Label hme_Title;
+    @FXML
+    Label hme_Body;
 
     /**
      * Handles the actions associated with the sign-in process.
@@ -199,7 +208,7 @@ public class Controller implements Initializable {
     @FXML
     private void handleSendToSignUp(MouseEvent event) {
         try {
-            App.setRoot("SignUpMenu");
+            App.alterScene("SignUpMenu", 840, 700);
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -265,6 +274,13 @@ public class Controller implements Initializable {
         }
     }
 
+    /*
+     * Contextual help was removed as it serves as too complicated of a system to be
+     * implemented for each component. There is a help menu on each menu that
+     * creates a contextual pop up that provides help about all the important
+     * concepts.
+     */
+
     /**
      * Handles the contextual help feature.
      *
@@ -274,19 +290,22 @@ public class Controller implements Initializable {
      *
      * @param event the KeyEvent that triggered this method invocation
      */
-    @FXML
-    private void handleContextualHelp(KeyEvent event) {
-        KeyCode keyPressed = event.getCode();
-        Object componentSource = event.getSource();
-        help.displayContextualHelpMessage(keyPressed, componentSource,
-                signIn_EmailInput,
-                signIn_PasswordInput,
-                signUp_EmailInput,
-                signUp_PasswordInput,
-                signUp_AdminCodeInput,
-                signIn_SignInButton,
-                signUp_SignUpButton);
-    }
+
+    /*
+     * @FXML
+     * private void handleContextualHelp(KeyEvent event) {
+     * KeyCode keyPressed = event.getCode();
+     * Object componentSource = event.getSource();
+     * help.displayContextualHelpMessage(keyPressed, componentSource,
+     * signIn_EmailInput,
+     * signIn_PasswordInput,
+     * signUp_EmailInput,
+     * signUp_PasswordInput,
+     * signUp_AdminCodeInput,
+     * signIn_SignInButton,
+     * signUp_SignUpButton);
+     * }
+     */
 
     /**
      * add javadoc
@@ -294,9 +313,73 @@ public class Controller implements Initializable {
      * @param event
      * @throws IOException
      */
-    private void handleHelp(MouseEvent event) throws IOException {
-        if (event.getSource().equals(signUp_HelpMenu)) {
-            App.setRoot("HelpMenu");
+    @FXML
+    private void handleHelp(KeyEvent event) {
+        if (event.getCode() == KeyCode.F1) {
+            try {
+                App.alterScene("HelpMenu", 840, 700);
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    @FXML
+    private void handleHelpSendBack(ActionEvent event) {
+        helpMenuExpanded.setVisible(false);
+        helpMenuContracted.setVisible(true);
+    }
+
+    @FXML
+    AnchorPane helpMenuContracted;
+    @FXML
+    AnchorPane helpMenuExpanded;
+
+    @FXML
+    private void handleHelpMenu_AddPatient(ActionEvent event) {
+        hme_Title.setText(help.getTitle("addPatient"));
+        hme_Body.setText(help.getBody("addPatient"));
+        try {
+            helpMenuContracted.setVisible(false);
+            helpMenuExpanded.setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private void handleHelpMenu_AddUser(ActionEvent event) {
+        hme_Title.setText(help.getTitle("addUser"));
+        hme_Body.setText(help.getBody("addUser"));
+        try {
+            helpMenuContracted.setVisible(false);
+            helpMenuExpanded.setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private void handleHelpMenu_RemovePatient(ActionEvent event) {
+        hme_Title.setText(help.getTitle("removePatient"));
+        hme_Body.setText(help.getBody("removePatient"));
+        try {
+            helpMenuContracted.setVisible(false);
+            helpMenuExpanded.setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    private void handleHelpMenu_ViewPatient(ActionEvent event) {
+        hme_Title.setText(help.getTitle("viewPatient"));
+        hme_Body.setText(help.getBody("viewPatient"));
+        try {
+            helpMenuContracted.setVisible(false);
+            helpMenuExpanded.setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
@@ -312,19 +395,12 @@ public class Controller implements Initializable {
      */
     @FXML
     private void handleBack(ActionEvent event) {
-        try {
-            App.setRoot("SignInMenu");
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        App.back();
     }
 
     @FXML
     private void handleMainSendBack(ActionEvent event) {
-        try {
-            App.alterScene("MainMenu", 1500, 750);
-        } catch (IOException e) {
-        }
+        App.back();
     }
 
     @FXML
@@ -450,11 +526,13 @@ public class Controller implements Initializable {
         try {
             this.mm_PatientTable.setItems(PatientManager.getPatientList());
             this.mm_PatientTableColumn.setCellValueFactory(new PropertyValueFactory<>("patientInformation"));
+        } catch (NullPointerException e) {
         } catch (Exception e) {
             System.out.println(e);
         }
         try {
             handleInitPatient();
+        } catch (NullPointerException e) {
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -463,9 +541,9 @@ public class Controller implements Initializable {
             String[] genderChoices = { "Male", "Female" };
             ap_MealChoiceSelect.getItems().addAll(mealChoices);
             ap_GenderSelect.getItems().addAll(genderChoices);
+        } catch (NullPointerException e) {
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
 }

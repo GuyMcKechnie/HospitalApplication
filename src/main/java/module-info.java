@@ -1,5 +1,5 @@
 module ha.hospitalapplication {
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires javafx.fxml;
     requires java.sql;
     requires transitive javafx.graphics;

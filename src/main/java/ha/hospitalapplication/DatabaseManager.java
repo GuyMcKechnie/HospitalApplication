@@ -1,5 +1,10 @@
 package ha.hospitalapplication;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,7 +18,8 @@ import java.sql.SQLException;
  */
 public class DatabaseManager {
 
-    private static final String databaseURL = "jdbc:ucanaccess://src\\main\\resources\\ha\\hospitalapplication\\Hospital.accdb";
+    private static final String databaseURL = "/ha/hospitalapplication/Hospital.accdb";
+    private static final String tempDatabaseFile = "temp_Hospital.accdb";
 
     private Connection conn;
     private PreparedStatement statement;
@@ -21,12 +27,30 @@ public class DatabaseManager {
 
     /**
      * The constructor for the database manager.
+     * 
+     * @throws IOException
      */
     public DatabaseManager() {
         try {
-            conn = DriverManager.getConnection(databaseURL);
+            // Extract the database file from the jar to a temporary location
+            InputStream dbInputStream = getClass().getResourceAsStream(databaseURL);
+            File tempFile = new File(tempDatabaseFile);
+            FileOutputStream fos = new FileOutputStream(tempFile);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = dbInputStream.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+            fos.close();
+            dbInputStream.close();
+
+            // Connect to the temporary database file
+            conn = DriverManager.getConnection("jdbc:ucanaccess://" + tempFile.getAbsolutePath());
         } catch (SQLException e) {
             System.out.println(e);
+        } catch (FileNotFoundException ex) {
+        } catch (IOException e) {
+
         }
 
     }

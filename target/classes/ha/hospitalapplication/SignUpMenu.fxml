@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="840.0" stylesheets="@SignUpMenu.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ha.hospitalapplication.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleHelp" prefHeight="700.0" prefWidth="840.0" stylesheets="@SignUpMenu.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ha.hospitalapplication.Controller">
    <children>
       <Pane layoutX="-174.0" layoutY="-196.0" prefHeight="936.0" prefWidth="389.0" rotate="25.0" styleClass="rotated-pane" />
       <HBox prefHeight="700.0" prefWidth="840.0" styleClass="container" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -29,7 +29,7 @@
                      <children>
                         <HBox alignment="CENTER_LEFT" spacing="40.0">
                            <children>
-                              <Button contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleBack" prefHeight="55.0" prefWidth="55.0" styleClass="back-button" text="Button" textFill="TRANSPARENT">
+                              <Button fx:id="backButton" contentDisplay="GRAPHIC_ONLY" mnemonicParsing="false" onAction="#handleBack" prefHeight="55.0" prefWidth="55.0" styleClass="back-button" text="Button" textFill="TRANSPARENT">
                                  <graphic>
                                     <SVGPath content="M13.697 1.875C7.1785 1.875 1.8754 7.1784 1.8754 13.6968c0 6.5188 5.3031 11.822 11.8216 11.8221 6.5186-.0001 11.8217-5.3034 11.8217-11.822C25.5186 7.1783 20.2155 1.875 13.697 1.875Zm0 25.5189c-7.5524 0-13.6967-6.1445-13.6967-13.697C.0003 6.1445 6.1446 0 13.697 0s13.6966 6.1445 13.6966 13.6969c0 7.5525-6.1442 13.697-13.6966 13.697Zm-1.8394-7.8305L6.6542 14.3604c-.1759-.1761-.2746-.4144-.2748-.6631 0-.2487.0987-.4871.2746-.6629L11.8577 7.8309c.1831-.1829.423-.2745.6629-.2745.24 0 .4799.0916.663.2746.3661.366.3661.9597 0 1.3259L9.5802 12.76l10.4325-.001c.5177 0 .9374.4195.9375.9373 0 .518-.4196.9376-.9374.9377L9.5807 14.635l3.6025 3.6024c.3664.3663.3664.9597.0001 1.326-.366.3659-.9596.366-1.3257 0Z" fill="#000695" fillRule="EVEN_ODD" scaleX="2.0" scaleY="2.0" />
                                  </graphic>
@@ -49,7 +49,7 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Email" />
                                     <Text fx:id="signUp_EmailErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="267.0068359375" />
-                                    <TextField fx:id="signUp_EmailInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
+                                    <TextField fx:id="signUp_EmailInput" prefHeight="60.0" prefWidth="340.0" promptText="johndoe@gmail.com" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -63,7 +63,7 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Password" />
                                     <Text fx:id="signUp_PasswordErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="230.8020782470703" />
-                                    <TextField fx:id="signUp_PasswordInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
+                                    <TextField fx:id="signUp_PasswordInput" prefHeight="60.0" prefWidth="340.0" promptText="password@123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -77,7 +77,7 @@
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="h3" text="Admin Code" />
                                     <Text fx:id="signUp_AdminCodeErrorObject" fill="RED" layoutX="10.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error" wrappingWidth="162.37437438964844" />
-                                    <TextField fx:id="signUp_AdminCodeInput" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" promptText="code#123" styleClass="textfield">
+                                    <TextField fx:id="signUp_AdminCodeInput" prefHeight="60.0" prefWidth="340.0" promptText="code#123" styleClass="textfield">
                                        <cursor>
                                           <Cursor fx:constant="TEXT" />
                                        </cursor>
@@ -87,7 +87,7 @@
                                     </TextField>
                                  </children>
                               </FlowPane>
-                              <Button fx:id="signUp_SignUpButton" mnemonicParsing="false" onAction="#handleSignUp" onKeyPressed="#handleContextualHelp" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
+                              <Button fx:id="signUp_SignUpButton" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="60.0" prefWidth="340.0" text="Sign Up">
                                  <cursor>
                                     <Cursor fx:constant="HAND" />
                                  </cursor>
