@@ -7,16 +7,51 @@ import java.util.Scanner;
 import javafx.scene.text.Text;
 
 /**
- * @todo add javadoc
+ * Authenticator class responsible for verifying user credentials and admin
+ * codes.
+ * 
+ * This class provides methods to check the validity of admin codes, user
+ * emails, and passwords.
+ * It interacts with the database to retrieve and compare stored credentials.
  */
 public class Authenticator {
 
     /*
      * Variables used in user auth
      */
-    // private int id = -1;
-    // private String email = "";
     private String password = "";
+
+    public boolean adminCodeAuthentication(String adminCodeToAuth, Text errorTextObject) {
+        return (adminCodeCheck(adminCodeToAuth, errorTextObject));
+    }
+
+    /**
+     * Authenticates a user's credentials.
+     * 
+     * This method checks if the inputted email and password match the stored values
+     * in the database using the private methods of the authenticator class.
+     * 
+     * @param inputtedEmail           the email of the user
+     * @param inputtedPassword        the password of the user
+     * @param emailErrorTextObject    the Text object to display the error message
+     *                                if
+     *                                the email is invalid
+     * @param passwordErrorTextObject the Text object to display the error message
+     *                                if the password is invalid
+     * @return true if the user credentials are valid, false otherwise
+     */
+    public boolean userAuthentication(String inputtedEmail, String inputtedPassword, Text emailErrorTextObject,
+            Text passwordErrorTextObject) {
+        if (!emailCheck(inputtedEmail)) {
+            emailErrorTextObject.setText("Invalid email!");
+            return false;
+        }
+        if (!passwordCheck(inputtedPassword)) {
+            passwordErrorTextObject.setText("Invalid password!");
+            return false;
+        }
+        return true;
+    }
 
     /**
      * Authenticates the admin code.
@@ -77,42 +112,5 @@ public class Authenticator {
      */
     private boolean passwordCheck(String inputtedPassword) {
         return this.password.equals(inputtedPassword);
-    }
-
-    /*
-     * Authenticates adminCode
-     * 
-     * @todo add javadoc
-     */
-    public boolean adminCodeAuth(String adminCodeToAuth, Text errorTextObject) {
-        return (adminCodeCheck(adminCodeToAuth, errorTextObject));
-    }
-
-    /**
-     * Authenticates a user's credentials.
-     * 
-     * This method checks if the inputted email and password match the stored values
-     * in the database.
-     * 
-     * @param inputtedEmail           the email of the user
-     * @param inputtedPassword        the password of the user
-     * @param emailErrorTextObject    the Text object to display the error message
-     *                                if
-     *                                the email is invalid
-     * @param passwordErrorTextObject the Text object to display the error message
-     *                                if the password is invalid
-     * @return true if the user credentials are valid, false otherwise
-     */
-    public boolean userAuth(String inputtedEmail, String inputtedPassword, Text emailErrorTextObject,
-            Text passwordErrorTextObject) {
-        if (!emailCheck(inputtedEmail)) {
-            emailErrorTextObject.setText("Invalid email!");
-            return false;
-        }
-        if (!passwordCheck(inputtedPassword)) {
-            passwordErrorTextObject.setText("Invalid password!");
-            return false;
-        }
-        return true;
     }
 }

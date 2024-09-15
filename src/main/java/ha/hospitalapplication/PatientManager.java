@@ -14,20 +14,37 @@ import javax.swing.JOptionPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- *
- * @author mckec
- */
 public class PatientManager {
+    /**
+     * Retrieves a list of all patients from the database.
+     * 
+     * @return an ObservableList of Patient objects representing all patients in the
+     *         database
+     */
+    public static ObservableList<Patient> getPatientList() {
+        ObservableList<Patient> patientList = FXCollections.observableArrayList();
+        Patient patientObject;
+        try {
+            ResultSet resultSet = Controller.databaseManager.query("SELECT * from tblPatients");
+            while (resultSet.next()) {
+                patientObject = new Patient(resultSet.getInt("PatientID"), resultSet.getString("firstName"),
+                        resultSet.getString("surname"), resultSet.getString("gender"), resultSet.getInt("age"),
+                        resultSet.getString("condition"),
+                        resultSet.getString("descriptionOfEvent"), resultSet.getTimestamp("joinDate").toLocalDateTime(),
+                        resultSet.getInt("mealChoice"), resultSet.getString("medication"));
+                patientList.add(patientObject);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return patientList;
+    }
 
     private Patient[] pArr = new Patient[100];
+
     private int size = 0;
 
-    /**
-     * This is the constructor for the patient manager.
-     */
     public PatientManager() {
-
         try {
             ResultSet resultSet = Controller.databaseManager.query("SELECT * FROM tblPatients");
             Patient patientObject;
@@ -45,6 +62,14 @@ public class PatientManager {
         }
     }
 
+    /**
+     * Removes a patient from the database based on their patient ID.
+     * 
+     * @param patientID the ID of the patient to be removed
+     * @throws HeadlessException if the graphical user interface cannot be accessed
+     * @throws SQLException      if an error occurs while executing the database
+     *                           query
+     */
     public void removePatient(int patientID) {
         try {
             Controller.databaseManager.update("DELETE * FROM tblPatients WHERE PatientID = '" + patientID + "';");
@@ -56,16 +81,19 @@ public class PatientManager {
     }
 
     /**
-     *
-     * @param patientID
-     * @param firstName
-     * @param surname
-     * @param age
-     * @param conditions
-     * @param descriptionOfEvent
-     * @param joinDate
-     * @param mealChoice
-     * @param medication
+     * Adds a new patient to the database.
+     * 
+     * @param firstName          the first name of the patient
+     * @param surname            the surname of the patient
+     * @param gender             the gender of the patient
+     * @param age                the age of the patient
+     * @param conditions         the medical conditions of the patient
+     * @param descriptionOfEvent the description of the event that led to the
+     *                           patient's admission
+     * @param joinDate           the date the patient joined the hospital
+     * @param mealChoice         the patient's meal choice
+     * @param medication         the patient's medication
+     * @return true if the patient was added successfully, false otherwise
      */
     public boolean addPatient(String firstName, String surname, String gender, int age, String conditions,
             String descriptionOfEvent, String joinDate, int mealChoice, String medication) {
@@ -113,27 +141,22 @@ public class PatientManager {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public int getSize() {
         return size;
     }
 
-    /**
-     *
-     * @param position
-     * @return
-     */
     public Patient getPatient(int patientID) {
         try {
             Controller.databaseManager.query("SELECT * FROM tblPatients WHERE patientID = '" + patientID + "';");
             return pArr[searchPatient(patientID)];
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
             return null;
         }
+    }
+
+    public String combineDateTime(LocalDate date, String time) {
+        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + time + ":00";
     }
 
     private int searchPatient(int patientID) {
@@ -143,28 +166,5 @@ public class PatientManager {
             }
         }
         return -1;
-    }
-
-    public static ObservableList<Patient> getPatientList() {
-        ObservableList<Patient> patientList = FXCollections.observableArrayList();
-        Patient patientObject;
-        try {
-            ResultSet resultSet = Controller.databaseManager.query("SELECT * from tblPatients");
-            while (resultSet.next()) {
-                patientObject = new Patient(resultSet.getInt("PatientID"), resultSet.getString("firstName"),
-                        resultSet.getString("surname"), resultSet.getString("gender"), resultSet.getInt("age"),
-                        resultSet.getString("condition"),
-                        resultSet.getString("descriptionOfEvent"), resultSet.getTimestamp("joinDate").toLocalDateTime(),
-                        resultSet.getInt("mealChoice"), resultSet.getString("medication"));
-                patientList.add(patientObject);
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return patientList;
-    }
-
-    public String combineDateTime(LocalDate date, String time) {
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + " " + time + ":00";
     }
 }

@@ -1,5 +1,6 @@
 package ha.hospitalapplication;
 
+import java.awt.HeadlessException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -18,6 +19,22 @@ import javafx.scene.text.Text;
  * they are done in the sign-up process.
  */
 public class Validator {
+
+    public boolean validateEmail(String inputtedEmail, Text errorObject, String allowedCharactersString) {
+        return presenceAndLengthCheck(inputtedEmail, errorObject)
+                && typeCheck(inputtedEmail, errorObject, allowedCharactersString);
+    }
+
+    public boolean validatePassword(String inputtedPassword, Text errorObject, String allowedCharactersString) {
+        return presenceAndLengthCheck(inputtedPassword, errorObject)
+                && typeCheck(inputtedPassword, errorObject, allowedCharactersString);
+    }
+
+    public boolean validateAddPatient(String nameInput, String surnameInput, String conditionInput,
+            String descOfEventInput, String medicationInput, String admissionTimeInput, String ageInput) {
+        return validateAddPatientText(nameInput, surnameInput, conditionInput, descOfEventInput, medicationInput)
+                && validateAddPatientAdmissionTime(admissionTimeInput) && validatePatientAge(ageInput);
+    }
 
     /**
      * Performs a presence and length check on the input string to ensure it is not
@@ -69,26 +86,6 @@ public class Validator {
         return true;
     }
 
-    /*
-     * Validate email
-     * 
-     * @todo add javadoc
-     */
-    public boolean validateEmail(String inputtedEmail, Text errorObject, String allowedCharactersString) {
-        return presenceAndLengthCheck(inputtedEmail, errorObject)
-                && typeCheck(inputtedEmail, errorObject, allowedCharactersString);
-    }
-
-    /*
-     * Validate password
-     * 
-     * @todo add javadoc
-     */
-    public boolean validatePassword(String inputtedPassword, Text errorObject, String allowedCharactersString) {
-        return presenceAndLengthCheck(inputtedPassword, errorObject)
-                && typeCheck(inputtedPassword, errorObject, allowedCharactersString);
-    }
-
     private boolean textValidation(String stringToValidate) {
         if (stringToValidate == null || stringToValidate.length() <= 1) {
             JOptionPane.showMessageDialog(null, "Text cannot be empty!");
@@ -104,6 +101,15 @@ public class Validator {
         return true;
     }
 
+    /**
+     * Validates the admission time for a patient.
+     * 
+     * This method checks if the input admission time is in the correct format
+     * (HH:mm). If the input time is invalid, it displays an error message.
+     * 
+     * @param admissionTimeInput the input admission time to be validated
+     * @return true if the input admission time is valid, false otherwise
+     */
     private boolean validateAddPatientAdmissionTime(String admissionTimeInput) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
@@ -111,6 +117,7 @@ public class Validator {
             return true;
         } catch (ParseException e) {
             JOptionPane.showMessageDialog(null, "Invalid time format. Please use HH:mm");
+            System.out.println(e);
             return false;
         }
     }
@@ -127,8 +134,9 @@ public class Validator {
             } else {
                 return true;
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Invalid age format. Please use a number");
+            System.out.println(e);
             return false;
         }
     }
@@ -138,11 +146,4 @@ public class Validator {
         return textValidation(nameInput) && textValidation(surnameInput) && textValidation(conditionInput)
                 && textValidation(descOfEventInput) && textValidation(medicationInput);
     }
-
-    public boolean validateAddPatient(String nameInput, String surnameInput, String conditionInput,
-            String descOfEventInput, String medicationInput, String admissionTimeInput, String ageInput) {
-        return validateAddPatientText(nameInput, surnameInput, conditionInput, descOfEventInput, medicationInput)
-                && validateAddPatientAdmissionTime(admissionTimeInput) && validatePatientAge(ageInput);
-    }
-
 }

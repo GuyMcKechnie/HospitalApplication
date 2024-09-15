@@ -5,12 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import javafx.scene.image.Image;
 
-/**
- *
- * @author mckec
- */
 public class Patient {
-
     private int patientID;
     private String firstName;
     private String surname;
@@ -20,7 +15,6 @@ public class Patient {
     private String conditions;
     private String descriptionOfEvent;
     private LocalDateTime joinDate;
-    private LocalDateTime estimatedDepartureDate;
     private int mealChoice;
     private String medication;
     private String patientInformation;
@@ -51,7 +45,8 @@ public class Patient {
     }
 
     /**
-     * Represents a patient in the hospital application.
+     * Represents a patient in the hospital application. It has the patientID input
+     * for if there are requirements that need to suffice entire database entries.
      *
      * @param patientID
      * @param joinDate
@@ -77,10 +72,54 @@ public class Patient {
         this.medication = medication;
     }
 
-    /**
-     *
-     * @return
-     */
+    public void setPatientID(int patientID) {
+        this.patientID = patientID;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setConditions(String conditions) {
+        this.conditions = conditions;
+    }
+
+    public void setDescriptionOfEvent(String descriptionOfEvent) {
+        this.descriptionOfEvent = descriptionOfEvent;
+    }
+
+    public void setJoinDate(LocalDateTime joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    public void setMealChoice(int mealChoice) {
+        this.mealChoice = mealChoice;
+    }
+
+    public void setMedication(String medication) {
+        this.medication = medication;
+    }
+
+    public void setPatientInformation(String patientInformation) {
+        this.patientInformation = patientInformation;
+    }
+
     public int getPatientID() {
         return patientID;
     }
@@ -93,21 +132,27 @@ public class Patient {
         this.name = firstName + " " + surname;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getName() {
         setName();
         return name;
     }
 
+    /**
+     * Returns the patient's gender with the first letter capitalized.
+     * 
+     * @return the patient's gender
+     */
     public String getGender() {
         String formattedString = this.gender.substring(0, 1).toUpperCase();
         formattedString += this.gender.substring(1);
         return formattedString;
     }
 
+    /**
+     * Returns the patient's image based on their gender.
+     * 
+     * @return the patient's image
+     */
     public Image getPatientImage() {
         String malePatient = "/ha/hospitalapplication/male-patient-image.png";
         String femalePatient = "/ha/hospitalapplication/female-patient-image.png";
@@ -118,63 +163,47 @@ public class Patient {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public int getAge() {
         return age;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getConditions() {
         return conditions;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getDescriptionOfEvent() {
         return descriptionOfEvent;
     }
 
+    /**
+     * Formats a LocalDateTime object into a string in the format "dd/MM/yyyy @
+     * HH:mm".
+     * 
+     * @param dateTimeObject the LocalDateTime object to be formatted
+     * @return the formatted date and time string
+     */
     public String formatDate(LocalDateTime dateTimeObject) {
         String formattedDate = dateTimeObject.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         formattedDate += " @ " + dateTimeObject.format(DateTimeFormatter.ofPattern("HH:mm"));
         return formattedDate;
     }
 
-    /**
-     *
-     * @return
-     */
     public LocalDateTime getJoinDate() {
         return joinDate;
     }
 
-    /**
-     * This is a rudimentary way of getting the departure date.
+    /*
+     * This is a rudimentary way of getting the departure date. It can be customised
+     * to whatever is needed.
      */
     public LocalDateTime getEstDepartureDate() {
         return getJoinDate().plusDays(15);
     }
 
-    /**
-     *
-     * @return
-     */
     public int getMealChoice() {
         return mealChoice;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getMedication() {
         return medication;
     }
@@ -184,10 +213,40 @@ public class Patient {
         return patientInformation;
     }
 
+    public Image getMainMeal() {
+        String mainMeal = getMealClass().split("#")[0];
+        return new Image(getClass().getResource(mainMeal).toExternalForm());
+    }
+
+    public Image getSecondaryMeal() {
+        String secondaryMeal = getMealClass().split("#")[1];
+        return new Image(getClass().getResource(secondaryMeal).toExternalForm());
+    }
+
+    public Image getTertiaryMeal() {
+        String tertiaryMeal = getMealClass().split("#")[2];
+        return new Image(getClass().getResource(tertiaryMeal).toExternalForm());
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     private void setPatientInformation() {
         this.patientInformation = "(" + getPatientID() + ")\t" + getName();
     }
 
+    /**
+     * Returns a string representing the meal class based on the patient's meal
+     * choice. The string contains three meal options separated by '#', which can be
+     * used to retrieve the corresponding meal images.
+     * 
+     * @return a string representing the meal class
+     */
     private String getMealClass() {
         String mealClass = "";
         switch (this.mealChoice) {
@@ -210,20 +269,4 @@ public class Patient {
                 return "";
         }
     }
-
-    public Image getMainMeal() {
-        String mainMeal = getMealClass().split("#")[0];
-        return new Image(getClass().getResource(mainMeal).toExternalForm());
-    }
-
-    public Image getSecondaryMeal() {
-        String secondaryMeal = getMealClass().split("#")[1];
-        return new Image(getClass().getResource(secondaryMeal).toExternalForm());
-    }
-
-    public Image getTertiaryMeal() {
-        String tertiaryMeal = getMealClass().split("#")[2];
-        return new Image(getClass().getResource(tertiaryMeal).toExternalForm());
-    }
-
 }

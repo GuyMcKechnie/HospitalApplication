@@ -1,7 +1,6 @@
 package ha.hospitalapplication;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,76 +12,53 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
- *
- * @author mckec
+ * Code taken and adapted from the provided code from the Funworks team.
+ * 
+ * @author Funworks
  */
 public class DatabaseManager {
-
-    private static final String databaseURL = "/ha/hospitalapplication/Hospital.accdb";
-    private static final String tempDatabaseFile = "temp_Hospital.accdb";
-
-    private Connection conn;
-    private PreparedStatement statement;
+    // Adapted code to be able to be stored in a JAR file for distribution
+    private static final String DATABASE_URL = "/ha/hospitalapplication/Hospital.accdb";
+    private static final String TEMP_DATABASE_FILE_NAME = "temp_Hospital.accdb";
+    // End of adaptation
+    private Connection connection;
+    private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    /**
-     * The constructor for the database manager.
-     * 
-     * @throws IOException
-     */
     public DatabaseManager() {
+        // Adapted to try-with-resources
         try {
-            // Extract the database file from the jar to a temporary location
-            InputStream dbInputStream = getClass().getResourceAsStream(databaseURL);
-            File tempFile = new File(tempDatabaseFile);
-            FileOutputStream fos = new FileOutputStream(tempFile);
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = dbInputStream.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
+            File tempFile;
+            try ( // Extract the database file from the jar to a temporary location
+                    InputStream dbInputStream = getClass().getResourceAsStream(DATABASE_URL)) {
+                tempFile = new File(TEMP_DATABASE_FILE_NAME);
+                try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = dbInputStream.read(buffer)) != -1) {
+                        fos.write(buffer, 0, bytesRead);
+                    }
+                }
             }
-            fos.close();
-            dbInputStream.close();
-
             // Connect to the temporary database file
-            conn = DriverManager.getConnection("jdbc:ucanaccess://" + tempFile.getAbsolutePath());
-        } catch (SQLException e) {
+            connection = DriverManager.getConnection("jdbc:ucanaccess://" + tempFile.getAbsolutePath());
+        } catch (SQLException | IOException e) {
             System.out.println(e);
-        } catch (FileNotFoundException ex) {
-        } catch (IOException e) {
-
         }
-
     }
 
-    /**
-     *
-     * @param update
-     * @throws SQLException
-     */
     public void update(String update) throws SQLException {
-        statement = conn.prepareStatement(update);
-        statement.executeUpdate();
-        statement.close();
+        preparedStatement = connection.prepareStatement(update);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 
-    /**
-     *
-     * @param stmt
-     * @return
-     * @throws SQLException
-     */
     public ResultSet query(String stmt) throws SQLException {
-        statement = conn.prepareStatement(stmt);
-        resultSet = statement.executeQuery();
+        preparedStatement = connection.prepareStatement(stmt);
+        resultSet = preparedStatement.executeQuery();
         return resultSet;
     }
 
-    /**
-     *
-     * @param rs
-     * @return
-     */
     public String processResultSet(ResultSet rs) {
         String temp = "";
         try {
@@ -95,8 +71,8 @@ public class DatabaseManager {
                 }
                 temp += "\n";
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return temp;
     }

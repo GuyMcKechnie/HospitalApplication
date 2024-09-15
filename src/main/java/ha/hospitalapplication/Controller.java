@@ -12,11 +12,9 @@ import javax.swing.JOptionPane;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -61,11 +59,15 @@ public class Controller implements Initializable {
 
     /**
      * Static object for fetching methods in the PatientManager class
+     * 
+     * @see PatientManager
      */
     public static PatientManager patientManager = new PatientManager();
 
     /**
      * Static object for fetching methods in the UserManager class
+     * 
+     * @see UserManager
      */
     public static UserManager userManager = new UserManager();
 
@@ -75,13 +77,10 @@ public class Controller implements Initializable {
     private static final String ALLOWED_EMAIL_STRING = ".@";
     private static final String ALLOWED_PASSWORD_STRING = "@;#-=.";
 
-    public static DatabaseManager getDatabaseManager() {
-        return databaseManager;
-    }
-
     /*
      * FXML Objects
      */
+
     // Sign In
     @FXML
     TextField signIn_EmailInput;
@@ -152,8 +151,6 @@ public class Controller implements Initializable {
     @FXML
     TextField ap_MedicationInput;
     @FXML
-    Button ap_AddPatientButton;
-    @FXML
     ChoiceBox<String> ap_GenderSelect;
     @FXML
     ChoiceBox<String> ap_MealChoiceSelect;
@@ -164,15 +161,59 @@ public class Controller implements Initializable {
 
     // Help
     @FXML
-    Button signIn_SignInButton;
-    @FXML
-    Button signUp_SignUpButton;
-    @FXML
-    MenuButton signUp_HelpMenu;
-    @FXML
     Label hme_Title;
     @FXML
     Label hme_Body;
+    @FXML
+    AnchorPane helpMenuContracted;
+    @FXML
+    AnchorPane helpMenuExpanded;
+
+    // Remove patient
+    @FXML
+    TextField rp_PatientIDInput;
+    @FXML
+    TextField rp_AdminCodeInput;
+    @FXML
+    Text rp_AdminCodeErrorObject;
+
+    /**
+     * Initializes the application's UI components and sets up the initial state of
+     * the application.
+     * 
+     * This method is called after the FXML file has been loaded and the UI
+     * components have been created.
+     * It is responsible for setting up the initial state of the application,
+     * including populating the patient table and setting up the help menu.
+     * 
+     * @param location  the location of the FXML file
+     * @param resources the resources used to localize the application
+     */
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            this.mm_PatientTable.setItems(PatientManager.getPatientList());
+            this.mm_PatientTableColumn.setCellValueFactory(new PropertyValueFactory<>("patientInformation"));
+        } catch (NullPointerException e) {
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            handleInitPatient();
+        } catch (NullPointerException e) {
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            String[] mealChoices = { "1", "2", "3" };
+            String[] genderChoices = { "Male", "Female" };
+            ap_MealChoiceSelect.getItems().addAll(mealChoices);
+            ap_GenderSelect.getItems().addAll(genderChoices);
+        } catch (NullPointerException e) {
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 
     /**
      * Handles the actions associated with the sign-in process.
@@ -184,20 +225,21 @@ public class Controller implements Initializable {
      * @param event the ActionEvent that triggered this method invocation
      * @see Validator validation logic and error handling
      */
+    @SuppressWarnings("unused")
     @FXML
     private void handleSignIn(ActionEvent event) {
         clearErrors();
+        String emailInput = signIn_EmailInput.getText();
+        String passwordInput = signIn_PasswordInput.getText();
         // Sending the input for validation
-        String email = signIn_EmailInput.getText();
-        String password = signIn_PasswordInput.getText();
-
-        if (!validator.validateEmail(email, signIn_EmailErrorObject, ALLOWED_EMAIL_STRING)) {
+        if (!validator.validateEmail(emailInput, signIn_EmailErrorObject, ALLOWED_EMAIL_STRING)) {
             return;
         }
-        if (!validator.validatePassword(password, signIn_PasswordErrorObject, ALLOWED_PASSWORD_STRING)) {
+        if (!validator.validatePassword(passwordInput, signIn_PasswordErrorObject, ALLOWED_PASSWORD_STRING)) {
             return;
         }
-        if (!authenticator.userAuth(email, password, signIn_EmailErrorObject, signIn_PasswordErrorObject)) {
+        if (!authenticator.userAuthentication(emailInput, passwordInput, signIn_EmailErrorObject,
+                signIn_PasswordErrorObject)) {
             return;
         }
         try {
@@ -216,6 +258,7 @@ public class Controller implements Initializable {
      * @param event the MouseEvent that triggered this method invocation
      * @throws IOException if an I/O error occurs during the navigation process
      */
+    @SuppressWarnings("unused")
     @FXML
     private void handleSendToSignUp(MouseEvent event) {
         try {
@@ -239,18 +282,19 @@ public class Controller implements Initializable {
      * @see Validator validation logic and error handling
      * @see Authenticator authenticator logic and error handling
      */
+    @SuppressWarnings("unused")
     @FXML
     private void handleSignUp(ActionEvent event) {
         clearErrors();
+        String emailInput = signUp_EmailInput.getText();
+        String passwordInput = signUp_PasswordInput.getText();
+        String adminCodeInput = signUp_AdminCodeInput.getText();
         // Sending the input for validation
-        String email = signUp_EmailInput.getText();
-        String password = signUp_PasswordInput.getText();
-        String adminCode = signUp_AdminCodeInput.getText();
-        if (validator.validateEmail(email, signUp_EmailErrorObject, ALLOWED_EMAIL_STRING)
-                && validator.validatePassword(password, signUp_PasswordErrorObject, ALLOWED_PASSWORD_STRING)
-                && authenticator.adminCodeAuth(adminCode, signUp_AdminCodeErrorObject)) {
+        if (validator.validateEmail(emailInput, signUp_EmailErrorObject, ALLOWED_EMAIL_STRING)
+                && validator.validatePassword(passwordInput, signUp_PasswordErrorObject, ALLOWED_PASSWORD_STRING)
+                && authenticator.adminCodeAuthentication(adminCodeInput, signUp_AdminCodeErrorObject)) {
             try {
-                userManager.addUser(email, password);
+                userManager.addUser(emailInput, passwordInput);
             } catch (Exception e) {
                 System.out.println(e);
             }
@@ -265,7 +309,6 @@ public class Controller implements Initializable {
      * handleSignUp methods to reset the error labels. It iterates over a list
      * of Text objects representing the error labels and sets their text to an
      * empty string.
-     *
      */
     private void clearErrors() {
         List<Text> errors = new ArrayList<>();
@@ -285,45 +328,16 @@ public class Controller implements Initializable {
         }
     }
 
-    /*
-     * Contextual help was removed as it serves as too complicated of a system to be
-     * implemented for each component. There is a help menu on each menu that
-     * creates a contextual pop up that provides help about all the important
-     * concepts.
-     */
-
     /**
-     * Handles the contextual help feature.
+     * Handles the actions associated with the help menu.
      *
-     * This method is triggered when the F1 key is pressed. It displays a
-     * message dialog providing contextual help for the currently focused
-     * component.
+     * This method is triggered when the F1 key is pressed. It creates a help menu
+     * and displays it to the user.
      *
      * @param event the KeyEvent that triggered this method invocation
+     * @throws IOException if an I/O error occurs during the navigation process
      */
-
-    /*
-     * @FXML
-     * private void handleContextualHelp(KeyEvent event) {
-     * KeyCode keyPressed = event.getCode();
-     * Object componentSource = event.getSource();
-     * help.displayContextualHelpMessage(keyPressed, componentSource,
-     * signIn_EmailInput,
-     * signIn_PasswordInput,
-     * signUp_EmailInput,
-     * signUp_PasswordInput,
-     * signUp_AdminCodeInput,
-     * signIn_SignInButton,
-     * signUp_SignUpButton);
-     * }
-     */
-
-    /**
-     * add javadoc
-     *
-     * @param event
-     * @throws IOException
-     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelp(KeyEvent event) {
         if (event.getCode() == KeyCode.F1) {
@@ -335,6 +349,16 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Handles the actions associated with the help menu.
+     *
+     * This method is triggered when the help button is clicked. It creates a help
+     * menu and displays it to the user.
+     *
+     * @param event the ActionEvent that triggered this method invocation
+     * @throws IOException if an I/O error occurs during the navigation process
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelpButton(ActionEvent event) {
         try {
@@ -344,17 +368,32 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Handles the actions associated with sending back the help menu.
+     *
+     * This method is triggered when the send back button is clicked in the help
+     * menu.
+     * It hides the expanded help menu and shows the contracted help menu.
+     *
+     * @param event the ActionEvent that triggered this method invocation
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelpSendBack(ActionEvent event) {
         helpMenuExpanded.setVisible(false);
         helpMenuContracted.setVisible(true);
     }
 
-    @FXML
-    AnchorPane helpMenuContracted;
-    @FXML
-    AnchorPane helpMenuExpanded;
-
+    /**
+     * Handles the actions associated with the help menu for adding a patient.
+     *
+     * This method is triggered when the "Add Patient" option is selected in the
+     * help menu. It displays the help information for adding a patient, including
+     * the title and body of the help text.
+     *
+     * @param event the ActionEvent that triggered this method invocation
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelpMenu_AddPatient(ActionEvent event) {
         hme_Title.setText(help.getTitle("addPatient"));
@@ -367,6 +406,16 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Handles the actions associated with the help menu for adding a user.
+     * 
+     * This method is triggered when the "Add User" option is selected in the help
+     * menu. It displays the help information for adding a user, including the title
+     * and body of the help text.
+     * 
+     * @param event the ActionEvent that triggered this method invocation
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelpMenu_AddUser(ActionEvent event) {
         hme_Title.setText(help.getTitle("addUser"));
@@ -379,6 +428,16 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Handles the actions associated with the help menu for removing a patient.
+     * 
+     * This method is triggered when the "Remove Patient" option is selected in the
+     * help menu. It displays the help information for removing a patient, including
+     * the title and body of the help text.
+     * 
+     * @param event the ActionEvent that triggered this method invocation
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelpMenu_RemovePatient(ActionEvent event) {
         hme_Title.setText(help.getTitle("removePatient"));
@@ -391,6 +450,16 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Handles the actions associated with the help menu for viewing a patient.
+     * 
+     * This method is triggered when the "View Patient" option is selected in the
+     * help menu. It displays the help information for viewing a patient, including
+     * the title and body of the help text.
+     * 
+     * @param event the ActionEvent that triggered this method invocation
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelpMenu_ViewPatient(ActionEvent event) {
         hme_Title.setText(help.getTitle("viewPatient"));
@@ -403,26 +472,19 @@ public class Controller implements Initializable {
         }
     }
 
-    /**
-     * Navigates back to the sign-in menu.
-     *
-     * This method is triggered when the back button is clicked. It sets the
-     * application root to "SignInMenu", effectively returning the user to the
-     * sign-in interface.
-     *
-     * @param event the ActionEvent that triggered this method invocation
-     *
-     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleBack(ActionEvent event) {
         App.back();
     }
 
+    @SuppressWarnings("unused")
     @FXML
     private void handleHelpBack(ActionEvent event) {
         App.backHelp();
     }
 
+    @SuppressWarnings("unused")
     @FXML
     private void handleMainSendBack(ActionEvent event) {
         try {
@@ -432,6 +494,18 @@ public class Controller implements Initializable {
         }
     }
 
+    /**
+     * Handles the actions associated with selecting a patient from the patient
+     * table.
+     * 
+     * This method is triggered when a patient is selected from the patient table.
+     * It retrieves the selected patient's information and updates the corresponding
+     * UI elements to display the patient's details.
+     * 
+     * @see Patient
+     * @see PatientManager
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleSelectedPatient() {
         Patient selectedPatient = mm_PatientTable.getSelectionModel().getSelectedItem();
@@ -441,7 +515,7 @@ public class Controller implements Initializable {
         }
         mm_PatientID.setText("(" + String.valueOf(selectedPatient.getPatientID()) + ")");
         mm_PatientName.setText(selectedPatient.getName());
-        mm_PatientGender.setText(selectedPatient.getGender()); // add | in builder
+        mm_PatientGender.setText(selectedPatient.getGender());
         mm_PatientAge.setText(String.valueOf(selectedPatient.getAge()));
         mm_PatientJoinDate.setText(selectedPatient.formatDate(selectedPatient.getJoinDate()));
         mm_ConditionText.setText(selectedPatient.getConditions());
@@ -454,6 +528,16 @@ public class Controller implements Initializable {
         mm_PatientImage.setImage(selectedPatient.getPatientImage());
     }
 
+    /**
+     * Initializes the patient information displayed in the main menu.
+     * 
+     * This method is called during the initialization of the application and is
+     * responsible for retrieving the information of the last patient added to the
+     * system and displaying it in the main menu.
+     * 
+     * @see Patient
+     * @see PatientManager
+     */
     private void handleInitPatient() {
         Patient selectedPatient = patientManager.getPatient(patientManager.getSize());
         mm_PatientID.setText("(" + String.valueOf(selectedPatient.getPatientID()) + ")");
@@ -478,6 +562,18 @@ public class Controller implements Initializable {
                 ap_AdmissionTime.getText(), ap_AgeInput.getText());
     }
 
+    /**
+     * Adds a new patient to the system.
+     * 
+     * This method is triggered when the "Add Patient" button is clicked. It
+     * retrieves the patient's information from the input fields, validates the
+     * data, and then adds the patient to the system if the data is valid.
+     * 
+     * @param event the ActionEvent that triggered this method invocation
+     * @see Patient
+     * @see PatientManager
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void addPatient(ActionEvent event) {
         if (!validatePatient()) {
@@ -513,6 +609,7 @@ public class Controller implements Initializable {
         }
     }
 
+    @SuppressWarnings("unused")
     @FXML
     private void handleAddPatientMenuOpen(ActionEvent event) {
         try {
@@ -522,28 +619,31 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
-    TextField rp_PatientIDInput;
-
-    @FXML
-    TextField rp_AdminCodeInput;
-    @FXML
-    Text rp_AdminCodeErrorObject;
-
+    /**
+     * Handles the actions associated with removing a patient from the system.
+     * 
+     * This method is triggered when the "Remove Patient" button is clicked. It
+     * retrieves the patient's ID and admin code from the input fields, validates
+     * the admin code, and then removes the patient with the specified ID from the
+     * system if the admin code is valid.
+     * 
+     * @param event the ActionEvent that triggered this method invocation
+     * @see PatientManager
+     */
+    @SuppressWarnings("unused")
     @FXML
     private void handleRemovePatient(ActionEvent event) {
-        int patientID = Integer.parseInt(rp_PatientIDInput.getText());
-        String adminCode = rp_AdminCodeInput.getText();
-        if (!authenticator.adminCodeAuth(adminCode, rp_AdminCodeErrorObject)) {
+        int patientIDInput = Integer.parseInt(rp_PatientIDInput.getText());
+        String adminCodeInput = rp_AdminCodeInput.getText();
+        if (!authenticator.adminCodeAuthentication(adminCodeInput, rp_AdminCodeErrorObject)) {
             return;
         }
         try {
-            patientManager.removePatient(patientID);
+            patientManager.removePatient(patientIDInput);
             handleMainSendBack(event);
         } catch (Exception e) {
             System.out.println(e);
         }
-
         /*
          * This code can be used to delete the patient that is currently selected in the
          * list of patients. However it removes the whole RemovePatient flow.
@@ -562,6 +662,7 @@ public class Controller implements Initializable {
          */
     }
 
+    @SuppressWarnings("unused")
     @FXML
     private void handleRemovePatientMenuOpen(ActionEvent event) {
         try {
@@ -571,38 +672,10 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
-    Button hiddenButton;
-    // OOO SPOOKY HIDDEN BUTTON
-
+    // HEHE SPOOKY WEIRD METHOD
+    @SuppressWarnings("unused")
     @FXML
     private void massAddPatients(ActionEvent event) {
         patientManager.massAddPatients();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            this.mm_PatientTable.setItems(PatientManager.getPatientList());
-            this.mm_PatientTableColumn.setCellValueFactory(new PropertyValueFactory<>("patientInformation"));
-        } catch (NullPointerException e) {
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        try {
-            handleInitPatient();
-        } catch (NullPointerException e) {
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        try {
-            String[] mealChoices = { "1", "2", "3" };
-            String[] genderChoices = { "Male", "Female" };
-            ap_MealChoiceSelect.getItems().addAll(mealChoices);
-            ap_GenderSelect.getItems().addAll(genderChoices);
-        } catch (NullPointerException e) {
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 }

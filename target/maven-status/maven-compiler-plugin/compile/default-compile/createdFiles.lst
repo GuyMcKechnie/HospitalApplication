@@ -1,12 +1,12 @@
-ha\hospitalapplication\Authenticator.class
-ha\hospitalapplication\DatabaseManager.class
 ha\hospitalapplication\Patient.class
 ha\hospitalapplication\User.class
+ha\hospitalapplication\Help.class
+ha\hospitalapplication\Main.class
+ha\hospitalapplication\Controller.class
+ha\hospitalapplication\Authenticator.class
+ha\hospitalapplication\DatabaseManager.class
 ha\hospitalapplication\App.class
 module-info.class
-ha\hospitalapplication\Help.class
 ha\hospitalapplication\UserManager.class
-ha\hospitalapplication\Main.class
 ha\hospitalapplication\Validator.class
-ha\hospitalapplication\Controller.class
 ha\hospitalapplication\PatientManager.class
