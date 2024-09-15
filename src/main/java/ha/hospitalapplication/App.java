@@ -61,6 +61,8 @@ public class App extends Application {
         newStage = new Stage();
         Scene newScene = new Scene(loadFXML("HelpMenu"), 840, 700);
         stage.hide();
+        newStage.setTitle("Hospital Manager");
+        newStage.setResizable(false);
         newStage.setScene(newScene);
         newStage.show();
     }
@@ -74,6 +76,8 @@ public class App extends Application {
 
     static void backHelp() {
         newStage.close();
+        stage.hide();
+        stage.setScene(App.scene);
         stage.show();
     }
 

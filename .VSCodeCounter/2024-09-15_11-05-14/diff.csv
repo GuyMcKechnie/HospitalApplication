@@ -1,0 +1,15 @@
+"filename", "language", "Java", "XML", "CSS", "comment", "blank", "total"
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\module-info.java", "Java", 9, 0, 0, 0, 3, 12
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\AddPatient.css", "CSS", 0, 0, 61, 5, 15, 81
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\AddPatient.fxml", "XML", 0, 167, 0, 0, 3, 170
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\HelpMenu.css", "CSS", 0, 0, 65, 5, 15, 85
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\HelpMenu.fxml", "XML", 0, 186, 0, 0, 3, 189
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\MainMenu.css", "CSS", 0, 0, 71, 5, 17, 93
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\MainMenu.fxml", "XML", 0, 121, 0, 0, 3, 124
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\RemovePatient.css", "CSS", 0, 0, 70, 5, 16, 91
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\RemovePatient.fxml", "XML", 0, 128, 0, 0, 3, 131
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignInMenu.css", "CSS", 0, 0, 69, 5, 16, 90
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignInMenu.fxml", "XML", 0, 127, 0, 0, 3, 130
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignUpMenu.css", "CSS", 0, 0, 70, 5, 16, 91
+"c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignUpMenu.fxml", "XML", 0, 138, 0, 0, 3, 141
+"Total", "-", 9, 867, 406, 30, 116, 1428

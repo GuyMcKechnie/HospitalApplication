@@ -1,0 +1,57 @@
+Date : 2024-09-15 11:05:14
+Directory : c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main
+Total : 24 files,  2342 codes, 486 comments, 277 blanks, all 3105 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         12 |      1,069 |        456 |        164 |      1,689 |
+| XML      |          6 |        867 |          0 |         18 |        885 |
+| CSS      |          6 |        406 |         30 |         95 |        531 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                            | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                               |         24 |      2,342 |        486 |        277 |      3,105 |
+| java                                                                                                            |         12 |      1,069 |        456 |        164 |      1,689 |
+| java (Files)                                                                                                    |          1 |          9 |          0 |          3 |         12 |
+| java\ha                                                                                                         |         11 |      1,060 |        456 |        161 |      1,677 |
+| java\ha\hospitalapplication                                                                                     |         11 |      1,060 |        456 |        161 |      1,677 |
+| resources                                                                                                       |         12 |      1,273 |         30 |        113 |      1,416 |
+| resources\ha                                                                                                    |         12 |      1,273 |         30 |        113 |      1,416 |
+| resources\ha\hospitalapplication                                                                                |         12 |      1,273 |         30 |        113 |      1,416 |
++-----------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                        | language | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\App.java                | Java     |         54 |         24 |         13 |         91 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\Authenticator.java      | Java     |         56 |         51 |         10 |        117 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\Controller.java         | Java     |        418 |        222 |         42 |        682 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\DatabaseManager.java    | Java     |         64 |          9 |          7 |         80 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\Help.java               | Java     |         27 |         12 |          4 |         43 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\Main.java               | Java     |          6 |          1 |          3 |         10 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\Patient.java            | Java     |        176 |         58 |         39 |        273 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\PatientManager.java     | Java     |        124 |         32 |         15 |        171 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\User.java               | Java     |         29 |          0 |          9 |         38 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\UserManager.java        | Java     |         17 |          0 |          5 |         22 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\ha\hospitalapplication\Validator.java          | Java     |         89 |         47 |         14 |        150 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\java\module-info.java                               | Java     |          9 |          0 |          3 |         12 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\AddPatient.css     | CSS      |         61 |          5 |         15 |         81 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\AddPatient.fxml    | XML      |        167 |          0 |          3 |        170 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\HelpMenu.css       | CSS      |         65 |          5 |         15 |         85 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\HelpMenu.fxml      | XML      |        186 |          0 |          3 |        189 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\MainMenu.css       | CSS      |         71 |          5 |         17 |         93 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\MainMenu.fxml      | XML      |        121 |          0 |          3 |        124 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\RemovePatient.css  | CSS      |         70 |          5 |         16 |         91 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\RemovePatient.fxml | XML      |        128 |          0 |          3 |        131 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignInMenu.css     | CSS      |         69 |          5 |         16 |         90 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignInMenu.fxml    | XML      |        127 |          0 |          3 |        130 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignUpMenu.css     | CSS      |         70 |          5 |         16 |         91 |
+| c:\Users\mckec\OneDrive\Coding\HospitalApplication\src\main\resources\ha\hospitalapplication\SignUpMenu.fxml    | XML      |        138 |          0 |          3 |        141 |
+| Total                                                                                                           |          |      2,342 |        486 |        277 |      3,105 |
++-----------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
